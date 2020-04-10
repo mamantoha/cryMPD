@@ -8,8 +8,8 @@ dependencies:
   kemal:
     github: kemalcr/kemal
   crystal_mpd:
-    github: mamantoha/crystal_mpd
-    # path: ../crystal_mpd
+    # github: mamantoha/crystal_mpd
+    path: ../crystal_mpd
 
 targets:
   websocket_example:

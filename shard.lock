@@ -1,7 +1,7 @@
 version: 1.0
 shards:
   crystal_mpd:
-    github: mamantoha/crystal_mpd
+    path: ../crystal_mpd
     version: 0.7.0
 
   exception_page:

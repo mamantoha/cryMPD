@@ -11,6 +11,7 @@ function connect() {
     bindEvents(ws);
     $.get("/current_song", function (data, textStatus, jqXHR) {
       changeSongTitle(data);
+      changeAlbumArt();
     });
     $.get("/status", function (data, textStatus, jqXHR) {
       mpd_status = JSON.parse(data);
@@ -43,6 +44,7 @@ function connect() {
     switch (data.action) {
       case "song":
         changeSongTitle(data.song);
+        changeAlbumArt();
         break;
       case "state":
         changeFavicon(data.state);
@@ -102,6 +104,10 @@ function changeSongTitle(data) {
   $("#currentSong #artist").html(song["Artist"]);
   $("#currentSong #title").html(song["Title"]);
   $(document).prop("title", pageTitle);
+}
+
+function changeAlbumArt() {
+  $("#albumCover").attr("src", "/albumart?timestamp=" + new Date().getTime());
 }
 
 function changeButtonState(state) {

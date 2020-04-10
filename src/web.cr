@@ -19,6 +19,18 @@ get "/status" do
   mpd_client.status.to_json
 end
 
+get "/albumart" do |env|
+  if current_song = mpd_client.currentsong
+    response = mpd_client.albumart(current_song["file"])
+
+    if response
+      send_file env, response.to_slice, "image/jpeg"
+    end
+  end
+rescue
+  send_file env, "./public/images/record_placeholder.jpg", "image/jpeg"
+end
+
 ws "/mpd" do |socket|
   # Add the client to SOCKETS list
   SOCKETS << socket
