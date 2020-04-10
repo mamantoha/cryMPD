@@ -21,7 +21,13 @@
   <body>
     <div class="container">
       <div class="media" id="currentSong">
-        <img class="mr-3" id="albumCover" src="/albumart">
+        <a class="thumbnail" href="#thumb">
+          <img class="mr-3" id="albumCover" src="/albumart">
+          <span>
+            <img id="albumCover-preview" src="/albumart">
+          </span>
+        </a>
+
         <div class="media-body">
           <h5 class="mt-0" id="title"></h5>
           <pre id="artist"></pre>

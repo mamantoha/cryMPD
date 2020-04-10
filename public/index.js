@@ -107,7 +107,9 @@ function changeSongTitle(data) {
 }
 
 function changeAlbumArt() {
-  $("#albumCover").attr("src", "/albumart?timestamp=" + new Date().getTime());
+  newSrc = `/albumart?timestamp=${new Date().getTime()}`
+  $("#albumCover").attr("src", newSrc);
+  $("#albumCover-preview").attr("src", newSrc);
 }
 
 function changeButtonState(state) {
