@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <meta charset="utf-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.7.0/css/all.css" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <script src="/index.js"></script>
+
+    <title>MPD Client</title>
+  </head>
+  <body>
+    <div class="container" style="margin-top: 3rem;">
+      <div class="media" id="currentSong">
+        <div class="media-body">
+          <h5 class="mt-0" id="title"></h5>
+          <pre id="artist"></pre>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-outline-primary" id="toggleRandom" aria-label="Shuffle">
+        <i class="fas fa-random"></i>
+      </button>
+
+      <button type="button" class="btn btn-outline-primary" id="prevSong" aria-label="Previous Song">
+        <i class="fas fa-fast-backward"></i>
+      </button>
+
+      <button type="button" class="btn btn-outline-primary" id="togglePlayPause" aria-label="Previous Song">
+        <i class="fas fa-play"></i>
+      </button>
+
+      <button type="button" class="btn btn-outline-primary" id="nextSong" aria-label="Next Song">
+        <i class="fas fa-fast-forward"></i>
+      </button>
+
+      <button type="button" class="btn btn-outline-primary" id="toggleRepeat" aria-label="Repeat">
+        <i class="fas fa-repeat"></i>
+      </button>
+
+    </div>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+name: mpd_web_client
+version: 0.0.1
+
+authors:
+  - Anton Maminov <anton.maminov@gmail.com>
+
+dependencies:
+  kemal:
+    github: kemalcr/kemal
+  crystal_mpd:
+    github: mamantoha/crystal_mpd
+    # path: ../crystal_mpd
+
+targets:
+  websocket_example:
+    main: src/web.cr
+
+crystal: 0.34.0
+
+license: MIT
