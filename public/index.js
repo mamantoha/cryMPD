@@ -35,8 +35,8 @@ function connect() {
   };
 
   window.onbeforeunload = function () {
-    websocket.onclose = function () {}; // disable onclose handler first
-    websocket.close();
+    ws.onclose = function () {}; // disable onclose handler first
+    ws.close();
   };
 
   ws.onmessage = function (e) {
