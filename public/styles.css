@@ -11,6 +11,16 @@ div#mediaControls {
   box-shadow: none;
 }
 
+#mediaControls .btn:hover {
+  color: #467efb !important;
+  background-color: white !important;
+}
+
+#mediaControls .btn.active:hover {
+  color: white !important;
+  background-color: #467efb !important;
+}
+
 img#albumCover {
   height: 64px;
 }
