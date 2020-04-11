@@ -62,7 +62,7 @@ class MPDClient
 
   def toggle_mode(mode)
     status.try do |status|
-      state = status[mode] == "0" ? true : false
+      state = status[mode] == "0"
       case mode
       when "random"
         random(state)
@@ -71,7 +71,7 @@ class MPDClient
       when "single"
         single(state)
       else
-        # nothing
+        nil
       end
     end
   end

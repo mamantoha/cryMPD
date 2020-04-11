@@ -21,9 +21,7 @@ end
 
 get "/albumart" do |env|
   mpd_client.currentsong.try do |current_song|
-    response = mpd_client.albumart(current_song["file"])
-
-    if response
+    if response = mpd_client.albumart(current_song["file"])
       send_file env, response.to_slice, "image/jpeg"
     end
   end
