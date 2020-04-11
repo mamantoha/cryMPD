@@ -1,23 +1,13 @@
 # MPD Web client
 
-TODO: Write a description here
+Control audio playing in the browser
+
+![Screenshot](https://github.com/mamantoha/mpd_web_client/blob/master/public/images/screenshot.png)
 
 ## TODO
 
 - [x] Automatically reconnect to WebSocket after it dies
 - [ ] Disable prev/next if not playing
-
-## Installation
-
-TODO: Write installation instructions here
-
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-TODO: Write development instructions here
 
 ## Contributing
 
