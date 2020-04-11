@@ -47,6 +47,19 @@ class MPDClient
     end
   end
 
+  def toggle_play_pause
+    status.try do |status|
+      case status["state"]
+      when "play"
+        pause
+      when "pause", "stop"
+        play
+      else
+        nil
+      end
+    end
+  end
+
   def toggle_mode(mode)
     status.try do |status|
       state = status[mode] == "0" ? true : false

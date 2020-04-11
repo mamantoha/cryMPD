@@ -42,16 +42,7 @@ ws "/mpd" do |socket|
     when "prevSong"
       mpd_client.previous
     when "togglePlayPause"
-      if status = mpd_client.status
-        case status["state"]
-        when "play"
-          mpd_client.pause
-        when "pause", "stop"
-          mpd_client.play
-        else
-          # unknown state
-        end
-      end
+      mpd_client.toggle_play_pause
     when "toggleRandom"
       mpd_client.toggle_mode("random")
     when "toggleRepeat"
@@ -59,7 +50,7 @@ ws "/mpd" do |socket|
     when "toggleSingle"
       mpd_client.toggle_mode("single")
     else
-      # nothing
+      nil
     end
   end
 
