@@ -19,6 +19,7 @@ function connect() {
       changeButtonState(mpd_status.state);
       changeRandomButtonState(mpd_status.random);
       changeRepeatButtonState(mpd_status.repeat);
+      changeSingleButtonState(mpd_status.single);
     });
   };
 
@@ -56,6 +57,9 @@ function connect() {
       case "repeat":
         changeRepeatButtonState(data.state);
         break;
+      case "single":
+        changeSingleButtonState(data.state);
+        break;
       default:
       // nothing
     }
@@ -87,6 +91,11 @@ function bindEvents(ws) {
     ws.send("toggleRepeat");
     e.preventDefault();
   });
+
+  $("button#toggleSingle").bind("click", function (e) {
+    ws.send("toggleSingle");
+    e.preventDefault();
+  });
 }
 
 function unbindEvents() {
@@ -95,6 +104,7 @@ function unbindEvents() {
   $("button#togglePlayPause").unbind("click");
   $("button#toggleRandom").unbind("click");
   $("button#toggleRepeat").unbind("click");
+  $("button#toggleSingle").unbind("click");
 }
 
 function changeSongTitle(data) {
@@ -154,6 +164,21 @@ function changeRepeatButtonState(state) {
       break;
     case "1":
       toggleRepeatButton.addClass("active");
+      break;
+    default:
+    // unknown state
+  }
+}
+
+function changeSingleButtonState(state) {
+  toggleSingleButton = $("button#toggleSingle");
+
+  switch (state) {
+    case "0":
+      toggleSingleButton.removeClass("active");
+      break;
+    case "1":
+      toggleSingleButton.addClass("active");
       break;
     default:
     // unknown state

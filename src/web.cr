@@ -56,6 +56,8 @@ ws "/mpd" do |socket|
       toggle_mode(mpd_client, "random")
     when "toggleRepeat"
       toggle_mode(mpd_client, "repeat")
+    when "toggleSingle"
+      toggle_mode(mpd_client, "single")
     else
       # nothing
     end
@@ -70,7 +72,16 @@ end
 def toggle_mode(mpd_client, mode)
   mpd_client.status.try do |status|
     state = status[mode] == "0" ? true : false
-    mpd_client.random(state)
+    case mode
+    when "random"
+      mpd_client.random(state)
+    when "repeat"
+      mpd_client.repeat(state)
+    when "single"
+      mpd_client.single(state)
+    else
+      # nothing
+    end
   end
 end
 
