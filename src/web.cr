@@ -20,7 +20,7 @@ get "/status" do
 end
 
 get "/albumart" do |env|
-  if current_song = mpd_client.currentsong
+  mpd_client.currentsong.try do |current_song|
     response = mpd_client.albumart(current_song["file"])
 
     if response
