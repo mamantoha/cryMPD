@@ -21,6 +21,10 @@ div#mediaControls {
   background-color: #467efb !important;
 }
 
+#mediaControls .btn:active {
+  transform: scale(1.05);
+}
+
 img#albumCover {
   height: 64px;
 }
