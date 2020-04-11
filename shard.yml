@@ -11,7 +11,7 @@ dependencies:
     github: mamantoha/crystal_mpd
 
 targets:
-  websocket_example:
+  mpd_web_client:
     main: src/web.cr
 
 crystal: 0.34.0
