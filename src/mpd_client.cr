@@ -39,6 +39,13 @@ class MPDClient
 
       SOCKETS.each { |socket| socket.send(data.to_json) }
     end
+
+    @client.on :time do |time|
+      time = time.split(':')
+      data = {"action" => "time", "current" => time[0], "full" => time[1]}
+
+      SOCKETS.each { |socket| socket.send(data.to_json) }
+    end
   end
 
   def current_song : String?
@@ -73,6 +80,14 @@ class MPDClient
       else
         nil
       end
+    end
+  end
+
+  # `relative` - from 0 to 1
+  def set_song_position(relative : Float64)
+    if current_song = client.currentsong
+      time = current_song["Time"].to_i
+      seekcur((time * relative).to_i)
     end
   end
 

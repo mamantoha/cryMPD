@@ -60,6 +60,12 @@ function connect() {
       case "single":
         changeSingleButtonState(data.state);
         break;
+      case "time":
+        current = parseInt(data.current);
+        full = parseInt(data.full);
+        progressBar = $("progress#progressBar")[0];
+        progressBar.value = current / full;
+        break;
       default:
       // nothing
     }
@@ -68,32 +74,69 @@ function connect() {
 
 function bindEvents(ws) {
   $("button#nextSong").bind("click", function (e) {
-    ws.send("nextSong");
+    message = JSON.stringify({
+      action: "nextSong",
+    });
+
+    ws.send(message);
     e.preventDefault();
   });
 
   $("button#prevSong").bind("click", function (e) {
-    ws.send("prevSong");
+    message = JSON.stringify({
+      action: "prevSong",
+    });
+
+    ws.send(message);
     e.preventDefault();
   });
 
   $("button#togglePlayPause").bind("click", function (e) {
-    ws.send("togglePlayPause");
+    message = JSON.stringify({
+      action: "togglePlayPause",
+    });
+
+    ws.send(message);
     e.preventDefault();
   });
 
   $("button#toggleRandom").bind("click", function (e) {
-    ws.send("toggleRandom");
+    message = JSON.stringify({
+      action: "toggleRandom",
+    });
+
+    ws.send(message);
     e.preventDefault();
   });
 
   $("button#toggleRepeat").bind("click", function (e) {
-    ws.send("toggleRepeat");
+    message = JSON.stringify({
+      action: "toggleRepeat",
+    });
+
+    ws.send(message);
     e.preventDefault();
   });
 
   $("button#toggleSingle").bind("click", function (e) {
-    ws.send("toggleSingle");
+    message = JSON.stringify({
+      action: "toggleSingle",
+    });
+
+    ws.send(message);
+    e.preventDefault();
+  });
+
+  $("#progressBar").bind("click", function (e) {
+    x = e.pageX - this.offsetLeft;
+    clickedValue = (x * this.max) / this.offsetWidth;
+
+    message = JSON.stringify({
+      action: "seek",
+      data: clickedValue,
+    });
+
+    ws.send(message);
     e.preventDefault();
   });
 }

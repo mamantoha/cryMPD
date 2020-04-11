@@ -26,7 +26,7 @@ img#albumCover {
   background-color: lightyellow;
   padding: 5px;
   left: -1000px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   visibility: hidden;
   color: black;
   text-decoration: none;
@@ -42,4 +42,25 @@ img#albumCover {
   visibility: visible;
   top: 0;
   left: 60px;
+}
+
+progress[value] {
+  /* Reset the default appearance */
+  -webkit-appearance: none;
+  appearance: none;
+
+  width: 270px;
+  height: 25px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+progress[value]::-webkit-progress-value {
+  background-color: #467efb;
+}
+
+progress[value]::-webkit-progress-bar {
+  background-color: #eee;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.25) inset;
 }

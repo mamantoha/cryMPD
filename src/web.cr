@@ -34,7 +34,9 @@ ws "/mpd" do |socket|
   SOCKETS << socket
 
   socket.on_message do |message|
-    case message
+    json = JSON.parse(message)
+
+    case json["action"]
     when "nextSong"
       mpd_client.next
     when "prevSong"
@@ -47,6 +49,8 @@ ws "/mpd" do |socket|
       mpd_client.toggle_mode("repeat")
     when "toggleSingle"
       mpd_client.toggle_mode("single")
+    when "seek"
+      mpd_client.set_song_position(json["data"].as_f)
     else
       nil
     end
