@@ -6,6 +6,11 @@ div#mediaControls {
   margin-top: 10px;
 }
 
+#mediaControls .btn:focus {
+  outline: none;
+  box-shadow: none;
+}
+
 img#albumCover {
   height: 64px;
 }
