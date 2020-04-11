@@ -6,11 +6,6 @@ Control audio playing in the browser
 
 ![Screenshot](https://github.com/mamantoha/mpd_web_client/blob/master/public/images/screenshot.png)
 
-## TODO
-
-- [x] Automatically reconnect to WebSocket after it dies
-- [ ] Disable prev/next if not playing
-
 ## Contributing
 
 1. Fork it (<https://github.com/mamantoha/mpd_web_client/fork>)

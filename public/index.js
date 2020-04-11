@@ -117,7 +117,7 @@ function changeSongTitle(data) {
 }
 
 function changeAlbumArt() {
-  newSrc = `/albumart?timestamp=${new Date().getTime()}`
+  newSrc = `/albumart?timestamp=${new Date().getTime()}`;
   $("#albumCover").attr("src", newSrc);
   $("#albumCover-preview").attr("src", newSrc);
 }
@@ -126,14 +126,17 @@ function changeButtonState(state) {
   togglePlayPauseButton = $("button#togglePlayPause");
 
   switch (state) {
-    case "pause":
-      togglePlayPauseButton.html("<i class='fas fa-play'></i>");
-      break;
     case "play":
       togglePlayPauseButton.html("<i class='fas fa-pause'></i>");
+      disablePrevNextButtons(false);
+      break;
+    case "pause":
+      togglePlayPauseButton.html("<i class='fas fa-play'></i>");
+      disablePrevNextButtons(true);
       break;
     case "stop":
       togglePlayPauseButton.html("<i class='fas fa-play'></i>");
+      disablePrevNextButtons(true);
       break;
     default:
     // unknown state
@@ -187,4 +190,9 @@ function changeSingleButtonState(state) {
 
 function changeFavicon(state) {
   $('link[rel="shortcut icon"]').attr("href", `/favicons/${state}.ico`);
+}
+
+function disablePrevNextButtons(disabled) {
+  $("button#prevSong").attr("disabled", disabled);
+  $("button#nextSong").attr("disabled", disabled);
 }
