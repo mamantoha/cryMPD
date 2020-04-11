@@ -53,11 +53,11 @@ ws "/mpd" do |socket|
         end
       end
     when "toggleRandom"
-      toggle_mode(mpd_client, "random")
+      mpd_client.toggle_mode("random")
     when "toggleRepeat"
-      toggle_mode(mpd_client, "repeat")
+      mpd_client.toggle_mode("repeat")
     when "toggleSingle"
-      toggle_mode(mpd_client, "single")
+      mpd_client.toggle_mode("single")
     else
       # nothing
     end
@@ -66,22 +66,6 @@ ws "/mpd" do |socket|
   # Remove clients from the list when it's closed
   socket.on_close do
     SOCKETS.delete(socket)
-  end
-end
-
-def toggle_mode(mpd_client, mode)
-  mpd_client.status.try do |status|
-    state = status[mode] == "0" ? true : false
-    case mode
-    when "random"
-      mpd_client.random(state)
-    when "repeat"
-      mpd_client.repeat(state)
-    when "single"
-      mpd_client.single(state)
-    else
-      # nothing
-    end
   end
 end
 

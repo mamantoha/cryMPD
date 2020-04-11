@@ -47,5 +47,21 @@ class MPDClient
     end
   end
 
+  def toggle_mode(mode)
+    status.try do |status|
+      state = status[mode] == "0" ? true : false
+      case mode
+      when "random"
+        random(state)
+      when "repeat"
+        repeat(state)
+      when "single"
+        single(state)
+      else
+        # nothing
+      end
+    end
+  end
+
   forward_missing_to @client
 end
