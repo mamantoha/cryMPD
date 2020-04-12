@@ -145,13 +145,12 @@ function bindEvents(ws) {
     e.preventDefault();
   });
 
-  $("input#volumeRange").on("change", function () {
-    message = JSON.stringify({
-      action: "volume",
-      data: parseInt(this.value),
-    });
+  $("input#volumeRange").on("change mousemove", function () {
+    handleChangeVolumeInput(this);
+  });
 
-    ws.send(message);
+  $("input#volumeRange").on("change touchmove", function () {
+    handleChangeVolumeInput(this);
   });
 }
 
@@ -162,7 +161,16 @@ function unbindEvents() {
   $("button#toggleRandom").unbind("click");
   $("button#toggleRepeat").unbind("click");
   $("button#toggleSingle").unbind("click");
-  $("input#volumeRange").unbind("change");
+  $("input#volumeRange").unbind();
+}
+
+function handleChangeVolumeInput(volumeInput) {
+  message = JSON.stringify({
+    action: "volume",
+    data: parseInt(volumeInput.value),
+  });
+
+  ws.send(message);
 }
 
 function changeSongTitle(data) {
