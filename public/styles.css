@@ -76,6 +76,7 @@ progress[value] {
   height: 25px;
   margin-top: 10px;
   margin-bottom: 10px;
+  cursor: text;
 }
 
 progress[value]::-webkit-progress-value {
