@@ -25,6 +25,10 @@ div#mediaControls {
   transform: scale(1.05);
 }
 
+#mediaControls .btn:disabled {
+  cursor: not-allowed;
+}
+
 img#albumCover {
   height: 64px;
 }
