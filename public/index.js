@@ -20,6 +20,7 @@ function connect() {
       changeRandomButtonState(mpd_status.random);
       changeRepeatButtonState(mpd_status.repeat);
       changeSingleButtonState(mpd_status.single);
+      changeVolume(mpd_status.volume);
     });
   };
 
@@ -65,6 +66,10 @@ function connect() {
         full = parseInt(data.full);
         progressBar = $("progress#progressBar")[0];
         progressBar.value = current / full;
+        break;
+      case "volume":
+        volume = data.volume;
+        changeVolume(volume);
         break;
       default:
       // nothing
@@ -139,6 +144,15 @@ function bindEvents(ws) {
     ws.send(message);
     e.preventDefault();
   });
+
+  $("input#volumeRange").on("change", function () {
+    message = JSON.stringify({
+      action: "volume",
+      data: parseInt(this.value),
+    });
+
+    ws.send(message);
+  });
 }
 
 function unbindEvents() {
@@ -148,6 +162,7 @@ function unbindEvents() {
   $("button#toggleRandom").unbind("click");
   $("button#toggleRepeat").unbind("click");
   $("button#toggleSingle").unbind("click");
+  $("input#volumeRange").unbind("change");
 }
 
 function changeSongTitle(data) {
@@ -238,4 +253,8 @@ function changeFavicon(state) {
 function disablePrevNextButtons(disabled) {
   $("button#prevSong").attr("disabled", disabled);
   $("button#nextSong").attr("disabled", disabled);
+}
+
+function changeVolume(volume) {
+  $("input#volumeRange").val(volume);
 }

@@ -47,6 +47,12 @@ class MPDClient
 
       SOCKETS.each { |socket| socket.send(data.to_json) }
     end
+
+    @client.on :volume do |volume|
+      data = {"action" => "volume", "volume" => volume}
+
+      SOCKETS.each { |socket| socket.send(data.to_json) }
+    end
   end
 
   def current_song : String?
