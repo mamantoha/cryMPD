@@ -20,10 +20,12 @@ get "/status" do
 end
 
 get "/albumart" do |env|
-  mpd_client.currentsong.try do |current_song|
+  if current_song = mpd_client.currentsong
     if response = mpd_client.albumart(current_song["file"])
       send_file env, response.to_slice, "image/jpeg"
     end
+  else
+    send_file env, "./public/images/record_placeholder.jpg", "image/jpeg"
   end
 rescue
   send_file env, "./public/images/record_placeholder.jpg", "image/jpeg"

@@ -58,6 +58,8 @@ class MPDClient
   def current_song : String?
     if current_song = client.currentsong
       current_song.to_json
+    else
+      nil
     end
   end
 

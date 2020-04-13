@@ -10,7 +10,12 @@ function connect() {
     console.log(`Connected to socket ${url}`);
     bindEvents(ws);
     $.get("/current_song", function (data, textStatus, jqXHR) {
-      changeSongTitle(data);
+      if (data) {
+        changeSongTitle(data);
+      } else {
+        $(document).prop("title", "MPD Web Client");
+      }
+
       changeAlbumArt();
     });
     $.get("/status", function (data, textStatus, jqXHR) {
@@ -22,10 +27,12 @@ function connect() {
       changeSingleButtonState(mpd_status.single);
       changeVolume(mpd_status.volume);
 
-      time = mpd_status.time.split(":");
-      position = parseInt(time[0]);
-      duration = parseInt(time[1]);
-      changeTimeProgress(position, duration);
+      if (mpd_status.time) {
+        time = mpd_status.time.split(":");
+        position = parseInt(time[0]);
+        duration = parseInt(time[1]);
+        changeTimeProgress(position, duration);
+      }
     });
   };
 
