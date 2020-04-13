@@ -43,7 +43,7 @@ class MPDClient
 
     @client.on :time do |time|
       time = time.split(':')
-      data = {"action" => "time", "current" => time[0], "full" => time[1]}
+      data = {"action" => "time", "position" => time[0], "duration" => time[1]}
 
       SOCKETS.each { |socket| socket.send(data.to_json) }
     end

@@ -21,6 +21,11 @@ function connect() {
       changeRepeatButtonState(mpd_status.repeat);
       changeSingleButtonState(mpd_status.single);
       changeVolume(mpd_status.volume);
+
+      time = mpd_status.time.split(":");
+      position = parseInt(time[0]);
+      duration = parseInt(time[1]);
+      changeTimeProgress(position, duration);
     });
   };
 
@@ -62,10 +67,9 @@ function connect() {
         changeSingleButtonState(data.state);
         break;
       case "time":
-        current = parseInt(data.current);
-        full = parseInt(data.full);
-        progressBar = $("progress#progressBar")[0];
-        progressBar.value = current / full;
+        position = parseInt(data.position);
+        duration = parseInt(data.full);
+        changeTimeProgress(position, duration);
         break;
       case "volume":
         volume = data.volume;
@@ -261,6 +265,11 @@ function changeFavicon(state) {
 function disablePrevNextButtons(disabled) {
   $("button#prevSong").attr("disabled", disabled);
   $("button#nextSong").attr("disabled", disabled);
+}
+
+function changeTimeProgress(position, duration) {
+  progressBar = $("progress#progressBar")[0];
+  progressBar.value = position / duration;
 }
 
 function changeVolume(volume) {
