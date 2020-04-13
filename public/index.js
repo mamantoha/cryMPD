@@ -68,7 +68,7 @@ function connect() {
         break;
       case "time":
         position = parseInt(data.position);
-        duration = parseInt(data.full);
+        duration = parseInt(data.duration);
         changeTimeProgress(position, duration);
         break;
       case "volume":
