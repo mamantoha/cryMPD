@@ -277,6 +277,16 @@ function disablePrevNextButtons(disabled) {
 function changeTimeProgress(position, duration) {
   progressBar = $("progress#progressBar")[0];
   progressBar.value = position / duration;
+  $(".timestamp").html(`${toMMSS(position)} / ${toMMSS(duration)}`);
+}
+
+function toMMSS(totalSeconds) {
+  minutes = Math.floor(totalSeconds / 60);
+  seconds = totalSeconds % 60;
+  if (seconds < 10) {
+    seconds = "0" + seconds;
+  }
+  return `${minutes}:${seconds}`;
 }
 
 function changeVolume(volume) {

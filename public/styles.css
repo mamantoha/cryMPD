@@ -67,14 +67,22 @@ img#albumCover {
   left: 60px;
 }
 
+.songProgress {
+  width: 270px;
+}
+
+.timestamp {
+  text-align: right;
+  font-size: 14px;
+}
+
 progress[value] {
   /* Reset the default appearance */
   -webkit-appearance: none;
   appearance: none;
 
-  width: 270px;
+  width: 100%;
   height: 25px;
-  margin-top: 10px;
   margin-bottom: 10px;
   cursor: text;
 }
