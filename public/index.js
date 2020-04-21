@@ -156,11 +156,7 @@ function bindEvents(ws) {
     e.preventDefault();
   });
 
-  $("input#volumeRange").on("change mousemove", function () {
-    handleChangeVolumeInput(this);
-  });
-
-  $("input#volumeRange").on("change touchmove", function () {
+  $("input#volumeRange").on("input", function () {
     handleChangeVolumeInput(this);
   });
 }
