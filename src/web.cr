@@ -5,6 +5,7 @@ require "flate"
 require "gzip"
 require "zlib"
 require "kemal"
+require "./ext/kemal"
 
 require "crystal_mpd"
 require "./mpd_client"
