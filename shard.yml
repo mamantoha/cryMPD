@@ -6,7 +6,8 @@ authors:
 
 dependencies:
   kemal:
-    github: kemalcr/kemal
+    github: mamantoha/kemal
+    branch: develop
   crystal_mpd:
     github: mamantoha/crystal_mpd
 

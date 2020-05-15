@@ -9,8 +9,8 @@ shards:
     version: 0.1.4
 
   kemal:
-    github: kemalcr/kemal
-    version: 0.26.1
+    github: mamantoha/kemal
+    commit: f5c1bc750b858b8c38f2509ead2050598d3e0d06
 
   kilt:
     github: jeromegn/kilt
