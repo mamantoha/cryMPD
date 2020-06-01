@@ -2,7 +2,7 @@ version: 1.0
 shards:
   crystal_mpd:
     github: mamantoha/crystal_mpd
-    version: 0.9.1
+    version: 0.9.2
 
   exception_page:
     github: crystal-loot/exception_page
@@ -10,7 +10,7 @@ shards:
 
   kemal:
     github: mamantoha/kemal
-    commit: f5c1bc750b858b8c38f2509ead2050598d3e0d06
+    commit: 0ec67f014ed04bc5568e7c24a1a6dd33620468b1
 
   kilt:
     github: jeromegn/kilt
