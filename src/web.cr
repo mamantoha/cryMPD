@@ -55,8 +55,6 @@ ws "/mpd" do |socket|
       mpd_client.set_song_position(json["data"].as_f)
     when "volume"
       mpd_client.setvol(json["data"].as_i)
-    else
-      nil
     end
   end
 

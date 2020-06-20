@@ -58,8 +58,6 @@ class MPDClient
   def current_song : String?
     if current_song = client.currentsong
       current_song.to_json
-    else
-      nil
     end
   end
 
@@ -70,8 +68,6 @@ class MPDClient
         pause
       when "pause", "stop"
         play
-      else
-        nil
       end
     end
   end
