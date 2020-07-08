@@ -6,8 +6,8 @@ authors:
 
 dependencies:
   kemal:
-    github: mamantoha/kemal
-    branch: develop
+    github: kemalcr/kemal
+    branch: master
   crystal_mpd:
     github: mamantoha/crystal_mpd
 
@@ -15,6 +15,6 @@ targets:
   mpd_web_client:
     main: src/web.cr
 
-crystal: 0.35.0
+crystal: 0.35.1
 
 license: MIT
