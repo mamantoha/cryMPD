@@ -72,6 +72,7 @@ img#albumCover {
 }
 
 .timestamp {
+  min-height: 21px;
   text-align: right;
   font-size: 14px;
 }
