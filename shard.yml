@@ -1,4 +1,4 @@
-name: mpd_web_client
+name: crympd
 version: 0.0.1
 
 authors:
@@ -12,8 +12,8 @@ dependencies:
     github: mamantoha/crystal_mpd
 
 targets:
-  mpd_web_client:
-    main: src/web.cr
+  crympd:
+    main: src/crympd.cr
 
 crystal: 0.35.1
 

@@ -143,21 +143,34 @@ function bindEvents(ws) {
     e.preventDefault();
   });
 
-  $("#progressBar").bind("click", function (e) {
-    x = e.pageX - this.offsetLeft;
-    clickedValue = (x * this.max) / this.offsetWidth;
-
-    message = JSON.stringify({
-      action: "seek",
-      data: clickedValue,
-    });
-
-    ws.send(message);
-    e.preventDefault();
+  $("input#progressBar").on("input", function () {
+    handleChangeProgressInput(this);
   });
 
   $("input#volumeRange").on("input", function () {
     handleChangeVolumeInput(this);
+  });
+
+  $("#updateDB").click(function() {
+    $.post("/update");
+  });
+
+  $("#exampleModal").on("show.bs.modal", function (event) {
+    modal = $(this);
+
+    $.get("/stats", function (data, textStatus, jqXHR) {
+      stats = JSON.parse(data);
+      modal_body = modal.find(".modal-body");
+
+      modal_body.find("#mpdInfo_version").text(stats.mpd_version);
+      modal_body.find("#mpdstats_artists").text(stats.artists);
+      modal_body.find("#mpdstats_albums").text(stats.albums);
+      modal_body.find("#mpdstats_songs").text(stats.songs);
+      modal_body.find("#mpdstats_dbPlaytime").text(stats.db_playtime);
+      modal_body.find("#mpdstats_dbUpdated").text(stats.db_update);
+      modal_body.find("#mpdstats_uptime").text(stats.uptime);
+      modal_body.find("#mpdstats_playtime").text(stats.playtime);
+    });
   });
 }
 
@@ -169,6 +182,17 @@ function unbindEvents() {
   $("button#toggleRepeat").unbind("click");
   $("button#toggleSingle").unbind("click");
   $("input#volumeRange").unbind();
+}
+
+function handleChangeProgressInput(progressInput) {
+  clickedValue = parseInt(progressInput.value) / 1000;
+
+  message = JSON.stringify({
+    action: "seek",
+    data: clickedValue,
+  });
+
+  ws.send(message);
 }
 
 function handleChangeVolumeInput(volumeInput) {
@@ -186,13 +210,13 @@ function changeSongTitle(data) {
   pageTitle = `${song["Artist"]} - ${song["Title"]}`;
   $("#currentSong #artist").html(song["Artist"]);
   $("#currentSong #title").html(song["Title"]);
+  $("#currentSong #album").html(song["Album"]);
   $(document).prop("title", pageTitle);
 }
 
 function changeAlbumArt() {
   newSrc = `/albumart?timestamp=${new Date().getTime()}`;
   $("#albumCover").attr("src", newSrc);
-  $("#albumCover-preview").attr("src", newSrc);
 }
 
 function changeButtonState(state) {
@@ -271,8 +295,8 @@ function disablePrevNextButtons(disabled) {
 }
 
 function changeTimeProgress(position, duration) {
-  progressBar = $("progress#progressBar")[0];
-  progressBar.value = position / duration;
+  progressBar = $("input#progressBar")[0];
+  progressBar.value = (position / duration) * 1000;
   $(".timestamp").html(`${toMMSS(position)} / ${toMMSS(duration)}`);
 }
 
@@ -286,5 +310,6 @@ function toMMSS(totalSeconds) {
 }
 
 function changeVolume(volume) {
+  $("span#volumePrct").html(`${volume} %`);
   $("input#volumeRange").val(volume);
 }

@@ -16,61 +16,160 @@
 
     <script src="/index.js"></script>
 
-    <title>MPD Client</title>
+    <title>cryMPD</title>
   </head>
   <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+      <a class="navbar-brand dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="far fa-play-circle"></span>
+        cryMPD
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdown01">
+        <a class="dropdown-item" href="#" id="updateDB">Update</a>
+        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#exampleModal">About</a>
+      </div>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto"></ul>
+        <div id="mediaControls">
+          <div class="btn-group" role="group">
+            <button type="button" class="btn btn-secondary" id="toggleRandom" data-toggle="tooltip" data-placement="bottom" title="Random">
+              <i class="fas fa-random"></i>
+            </button>
+            <button type="button" class="btn btn-secondary" id="prevSong" data-toggle="tooltip" data-placement="bottom" title="Previous Track">
+              <i class="fas fa-fast-backward"></i>
+            </button>
+            <button type="button" class="btn btn-secondary" id="togglePlayPause" data-toggle="tooltip" data-placement="bottom" title="Play/Pause">
+              <i class="fas fa-play"></i>
+            </button>
+            <button type="button" class="btn btn-secondary" id="nextSong" data-toggle="tooltip" data-placement="bottom" title="Next Track">
+              <i class="fas fa-fast-forward"></i>
+            </button>
+            <button type="button" class="btn btn-secondary" id="toggleRepeat" data-toggle="tooltip" data-placement="bottom" title="Repeat">
+              <i class="fas fa-repeat"></i>
+            </button>
+            <button type="button" class="btn btn-secondary" id="toggleSingle" data-toggle="tooltip" data-placement="bottom" title="Sindle">
+              <i class="fas fa-repeat-1"></i>
+            </button>
+          </div>
+
+          <div class="btn-group dropdown" id="volumeMenu">
+            <button class="btn btn-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+              <i class="fas fa-volume"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right bg-lite-dark" tabindex="0">
+              <h2 class="dropdown-header text-light">
+                <span>Volume</span>: <span id="volumePrct"></span>
+              </h2>
+              <div class="btn">
+                <input type="range" min="0" max="100" step="1" class="form-control-range" id="volumeRange">
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </nav>
+
     <div class="container">
-      <div class="media" id="currentSong">
-        <div class="thumbnail">
-          <img class="mr-3" id="albumCover" src="/albumart">
-          <span>
-            <img id="albumCover-preview" src="/albumart">
-          </span>
+      <div class="card" id="currentSong">
+        <div class="card-header">
+          <span>Playback</span>
         </div>
+        <div class="card-body">
+          <div class="thumbnail">
+            <img class="mr-3" id="albumCover" src="/albumart">
+          </div>
 
-        <div class="media-body">
-          <h5 class="mt-0" id="title"></h5>
-          <pre id="artist"></pre>
+          <div class="breakAll">
+            <h5 class="mt-0" id="title"></h5>
+            <small>Atrist</small>
+            <pre id="artist"></pre>
+            <small>Album</small>
+            <pre id="album"></pre>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="d-flex align-items-center">
+            <input type="range" min="0" max="1000" step="1" class="form-control-range" id="progressBar">
+            <div class="timestamp"></div>
+          </div>
         </div>
       </div>
+    </div>
 
-      <div class="songProgress">
-        <div class="timestamp"></div>
-        <progress id="progressBar" value="0" max="1" data-toggle="tooltip" data-placement="top" title=""></progress>
+    <!-- About Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">About</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-sm" tabindex="0">
+              <tbody>
+                <tr>
+                  <td colspan="2" class="pt-3">
+                      <h5>Database statistics</h5>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Artists</th>
+                  <td id="mpdstats_artists"></td>
+                </tr>
+                <tr>
+                  <th>Albums</th>
+                  <td id="mpdstats_albums"></td>
+                </tr>
+                <tr>
+                  <th>Songs</th>
+                  <td id="mpdstats_songs"></td>
+                </tr>
+                <tr>
+                  <th>DB play time</th>
+                  <td id="mpdstats_dbPlaytime"></td>
+                </tr>
+                <tr>
+                  <th>DB updated</th>
+                  <td id="mpdstats_dbUpdated"></td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="pt-3">
+                      <h5>Playback statistics</h5>
+                  </td>
+                </tr>
+                <tr>
+                  <th>MPD uptime</th>
+                  <td id="mpdstats_uptime"></td>
+                </tr>
+                <tr>
+                  <th>Play time</th>
+                  <td id="mpdstats_playtime"></td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="pt-3">
+                      <h5>MPD</h5>
+                  </td>
+                </tr>
+                <tr>
+                  <th>Protocol version</th>
+                  <td id="mpdInfo_version"></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
       </div>
-
-      <div class="volumeContainer">
-        <i class="fa fa-volume-down"></i>
-        <input type="range" min="0" max="100" class="slider" id="volumeRange">
-        <i class="fa fa-volume-up"></i>
-      </div>
-
-      <div id="mediaControls">
-        <button type="button" class="btn btn-outline-primary" id="toggleRandom" aria-label="Shuffle">
-          <i class="fas fa-random"></i>
-        </button>
-
-        <button type="button" class="btn btn-outline-primary" id="prevSong" aria-label="Previous Song">
-          <i class="fas fa-fast-backward"></i>
-        </button>
-
-        <button type="button" class="btn btn-outline-primary" id="togglePlayPause" aria-label="Previous Song">
-          <i class="fas fa-play"></i>
-        </button>
-
-        <button type="button" class="btn btn-outline-primary" id="nextSong" aria-label="Next Song">
-          <i class="fas fa-fast-forward"></i>
-        </button>
-
-        <button type="button" class="btn btn-outline-primary" id="toggleRepeat" aria-label="Repeat">
-          <i class="fas fa-repeat"></i>
-        </button>
-
-        <button type="button" class="btn btn-outline-primary" id="toggleSingle" aria-label="Single">
-          <i class="fas fa-repeat-1"></i>
-        </button>
-      </div>
-
     </div>
   </body>
 </html>
