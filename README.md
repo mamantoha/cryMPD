@@ -1,4 +1,4 @@
-# MPD Web Client
+# cryMPD
 
 [![Built with Crystal](https://img.shields.io/badge/built%20with-crystal-000000.svg?style=?style=plastic&logo=appveyor)](https://crystal-lang.org/)
 
