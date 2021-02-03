@@ -3,3 +3,5 @@
 /bin/
 /.shards/
 *.dwarf
+/public/dist/
+/node_modules

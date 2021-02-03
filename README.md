@@ -6,6 +6,18 @@ Control [Music Player Daemon](https://www.musicpd.org/) audio playing in the bro
 
 ![Screenshot](https://github.com/mamantoha/cryMPD/blob/master/public/images/screenshot.png)
 
+## Develpment
+
+```console
+npm install
+npm run build
+```
+
+```console
+shards install
+crystal src/crympd.cr
+```
+
 ## Contributing
 
 1. Fork it (<https://github.com/mamantoha/cryMPD/fork>)

@@ -224,15 +224,15 @@ function changeButtonState(state) {
 
   switch (state) {
     case "play":
-      togglePlayPauseButton.html("<i class='fas fa-pause'></i>");
+      togglePlayPauseButton.html("<i class='material-icons pause_circle_filled'></i>");
       disablePrevNextButtons(false);
       break;
     case "pause":
-      togglePlayPauseButton.html("<i class='fas fa-play'></i>");
+      togglePlayPauseButton.html("<i class='material-icons play_circle_fill'></i>");
       disablePrevNextButtons(true);
       break;
     case "stop":
-      togglePlayPauseButton.html("<i class='fas fa-play'></i>");
+      togglePlayPauseButton.html("<i class='material-icons play_circle_fill'></i>");
       disablePrevNextButtons(true);
       break;
     default:
