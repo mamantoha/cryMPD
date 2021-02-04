@@ -14,6 +14,20 @@ body {
   margin-top: 3rem;
 }
 
+.navbar-brand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#mediaControls {
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
 #mediaControls .btn:focus {
   outline: none;
   box-shadow: none;
