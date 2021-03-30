@@ -9,49 +9,53 @@ class MPDClient
     @client = MPD::Client.new("/run/mpd/socket", with_callbacks: true)
     @client.callbacks_timeout = 100.milliseconds
 
+    set_callbacks
+  end
+
+  private def set_callbacks
     @client.on :song do |_song|
       if song = current_song
         data = {"action" => "song", "song" => song}
 
-        SOCKETS.each { |socket| socket.send(data.to_json) }
+        SOCKETS.each(&.send(data.to_json))
       end
     end
 
     @client.on :state do |state|
       data = {"action" => "state", "state" => state}
 
-      SOCKETS.each { |socket| socket.send(data.to_json) }
+      SOCKETS.each(&.send(data.to_json))
     end
 
     @client.on :random do |random|
       data = {"action" => "random", "state" => random}
 
-      SOCKETS.each { |socket| socket.send(data.to_json) }
+      SOCKETS.each(&.send(data.to_json))
     end
 
     @client.on :repeat do |repeat|
       data = {"action" => "repeat", "state" => repeat}
 
-      SOCKETS.each { |socket| socket.send(data.to_json) }
+      SOCKETS.each(&.send(data.to_json))
     end
 
     @client.on :single do |single|
       data = {"action" => "single", "state" => single}
 
-      SOCKETS.each { |socket| socket.send(data.to_json) }
+      SOCKETS.each(&.send(data.to_json))
     end
 
     @client.on :time do |time|
       time = time.split(':')
       data = {"action" => "time", "position" => time[0], "duration" => time[1]}
 
-      SOCKETS.each { |socket| socket.send(data.to_json) }
+      SOCKETS.each(&.send(data.to_json))
     end
 
     @client.on :volume do |volume|
       data = {"action" => "volume", "volume" => volume}
 
-      SOCKETS.each { |socket| socket.send(data.to_json) }
+      SOCKETS.each(&.send(data.to_json))
     end
   end
 
