@@ -2,7 +2,7 @@ version: 2.0
 shards:
   crystal_mpd:
     git: https://github.com/mamantoha/crystal_mpd.git
-    version: 0.10.1
+    version: 0.11.0
 
   exception_page:
     git: https://github.com/crystal-loot/exception_page.git
@@ -10,13 +10,13 @@ shards:
 
   kemal:
     git: https://github.com/kemalcr/kemal.git
-    version: 0.27.0+git.commit.bf9f627ac789d2ebe573629904f02beb9e4089d5
+    version: 1.0.0
 
   kilt:
     git: https://github.com/jeromegn/kilt.git
-    version: 0.4.0
+    version: 0.4.1
 
   radix:
     git: https://github.com/luislavena/radix.git
-    version: 0.3.9
+    version: 0.4.1
 

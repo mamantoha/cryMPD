@@ -1,5 +1,5 @@
 name: cryMPD
-version: 0.0.1
+version: 0.1.0
 
 authors:
   - Anton Maminov <anton.maminov@gmail.com>
@@ -7,7 +7,6 @@ authors:
 dependencies:
   kemal:
     github: kemalcr/kemal
-    branch: master
   crystal_mpd:
     github: mamantoha/crystal_mpd
 
@@ -15,6 +14,6 @@ targets:
   crympd:
     main: src/crympd.cr
 
-crystal: 0.35.1
+crystal: 1.0.0
 
 license: MIT
