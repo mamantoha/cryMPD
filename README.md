@@ -4,7 +4,7 @@
 
 Control [Music Player Daemon](https://www.musicpd.org/) audio playing in the browser
 
-![Screenshot](https://github.com/mamantoha/cryMPD/blob/master/public/images/screenshot.png)
+![Screenshot](https://github.com/mamantoha/cryMPD/raw/master/public/images/screenshot.png)
 
 ## Develpment
 
