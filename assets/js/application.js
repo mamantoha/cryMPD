@@ -24,11 +24,10 @@ function updatePlaylist() {
 
       let songs = JSON.parse(data);
       songs.forEach(function (song) {
+        let songPos = parseInt(song["pos"]) + 1;
         let row = $(`
           <tr class="playlistSong" id="${song["pos"]}">
-            <td>
-              <i class="material-icons play_arrow"></i>
-            </td>
+            <td>${songPos}</td>
             <td>${song["artist"]}</td>
             <td>${song["title"]}</td>
             <td>${song["duration"]}</td>
