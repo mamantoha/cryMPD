@@ -111,4 +111,8 @@ img#albumCover {
   tr.current-song {
     background-color: #467efb;
   }
+
+  .table-hover tbody tr.current-song:hover {
+    background-color: #5881da;
+  }
 }

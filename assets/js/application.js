@@ -255,8 +255,6 @@ function changeCurrentSong(data) {
 
   $("#playlistTable tr").removeClass("current-song");
   $("#playlistTable tr#" + song["Pos"]).addClass("current-song");
-
-  scrollToSong(song);
 }
 
 function changeAlbumArt() {
