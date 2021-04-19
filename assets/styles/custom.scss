@@ -88,3 +88,27 @@ img#albumCover {
   background: #467efb;
   cursor: pointer;
 }
+
+.dropdown-menu {
+  margin-top: 10px;
+}
+
+.playlist-menu {
+  padding: 0;
+  width: 50vw;
+  height: auto;
+  max-height: calc(100vh - 60px);
+  overflow-x: hidden;
+
+  table {
+    margin-bottom: 0;
+  }
+
+  tr.playlistSong {
+    cursor: pointer;
+  }
+
+  tr.current-song {
+    background-color: #467efb;
+  }
+}

@@ -57,6 +57,18 @@ class MPDClient
 
       SOCKETS.each(&.send(data.to_json))
     end
+
+    @client.on :playlist do |volume|
+      data = {"action" => "playlist"}
+
+      SOCKETS.each(&.send(data.to_json))
+    end
+
+    @client.on :playlistlength do |volume|
+      data = {"action" => "playlist"}
+
+      SOCKETS.each(&.send(data.to_json))
+    end
   end
 
   def current_song : String?

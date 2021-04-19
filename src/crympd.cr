@@ -41,6 +41,32 @@ get "/stats" do
   stats.to_json
 end
 
+get "/playlist" do
+  songs = [] of Hash(String, String)
+
+  if data = mpd_client.playlistinfo
+    data.each do |song|
+      time = Time::Span.new(seconds: song["Time"].to_i)
+
+      songs << {
+        "id"       => song["Id"],
+        "pos"      => song["Pos"],
+        "artist"   => song["Artist"]? || "",
+        "title"    => song["Title"]? || "",
+        "duration" => "#{time.minutes}:#{time.seconds.to_s.rjust(2, '0')}",
+      }
+    end
+  end
+
+  songs.to_json
+end
+
+get "/play/:songpos" do |env|
+  songpos = env.params.url["songpos"].to_i
+
+  mpd_client.play(songpos)
+end
+
 get "/albumart" do |env|
   if current_song = mpd_client.currentsong
     if response = mpd_client.albumart(current_song["file"])

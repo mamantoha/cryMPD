@@ -1,6 +1,45 @@
 $(document).ready(function () {
   connect();
+  updatePlaylist();
+  bindEvents();
 });
+
+function bindEvents() {
+  $(".dropdown-menu.playlist-menu").on("click", function (event) {
+    event.stopPropagation();
+  });
+
+  $("#playlistMenu").on("show.bs.dropdown", function () {
+    scrollToCurentSong();
+  });
+}
+
+function updatePlaylist() {
+  let playlist = $("#playlistMenu #playlistTable");
+  let playlistBody = playlist.find("tbody");
+
+  $.get("/playlist", function (data, _textStatus, _jqXHR) {
+    if (data) {
+      playlistBody.html("");
+
+      let songs = JSON.parse(data);
+      songs.forEach(function (song) {
+        let row = $(`
+          <tr class="playlistSong" id="${song["pos"]}">
+            <td>
+              <i class="material-icons play_arrow"></i>
+            </td>
+            <td>${song["artist"]}</td>
+            <td>${song["title"]}</td>
+            <td>${song["duration"]}</td>
+          </tr>
+        `);
+        playlistBody.append(row);
+        row.on("click", playHandler);
+      });
+    }
+  });
+}
 
 function connect() {
   url = `ws://${location.host}/mpd`;
@@ -8,10 +47,10 @@ function connect() {
 
   ws.onopen = function () {
     console.log(`Connected to socket ${url}`);
-    bindEvents(ws);
+    bindWsEvents(ws);
     $.get("/current_song", function (data, textStatus, jqXHR) {
       if (data) {
-        changeSongTitle(data);
+        changeCurrentSong(data);
       } else {
         $(document).prop("title", "MPD Web Client");
       }
@@ -57,7 +96,7 @@ function connect() {
 
     switch (data.action) {
       case "song":
-        changeSongTitle(data.song);
+        changeCurrentSong(data.song);
         changeAlbumArt();
         break;
       case "state":
@@ -82,13 +121,15 @@ function connect() {
         volume = data.volume;
         changeVolume(volume);
         break;
+      case "playlist":
+        updatePlaylist();
       default:
       // nothing
     }
   };
 }
 
-function bindEvents(ws) {
+function bindWsEvents(ws) {
   $("button#nextSong").bind("click", function (e) {
     message = JSON.stringify({
       action: "nextSong",
@@ -151,7 +192,7 @@ function bindEvents(ws) {
     handleChangeVolumeInput(this);
   });
 
-  $("#updateDB").click(function() {
+  $("#updateDB").on("click", function () {
     $.post("/update");
   });
 
@@ -204,7 +245,7 @@ function handleChangeVolumeInput(volumeInput) {
   ws.send(message);
 }
 
-function changeSongTitle(data) {
+function changeCurrentSong(data) {
   song = JSON.parse(data);
 
   pageTitle = `${song["Artist"]} - ${song["Title"]}`;
@@ -212,6 +253,11 @@ function changeSongTitle(data) {
   $("#currentSong #title").html(song["Title"]);
   $("#currentSong #album").html(song["Album"]);
   $(document).prop("title", pageTitle);
+
+  $("#playlistTable tr").removeClass("current-song");
+  $("#playlistTable tr#" + song["Pos"]).addClass("current-song");
+
+  scrollToSong(song);
 }
 
 function changeAlbumArt() {
@@ -224,15 +270,21 @@ function changeButtonState(state) {
 
   switch (state) {
     case "play":
-      togglePlayPauseButton.html("<i class='material-icons pause_circle_filled'></i>");
+      togglePlayPauseButton.html(
+        "<i class='material-icons pause_circle_filled'></i>"
+      );
       disablePrevNextButtons(false);
       break;
     case "pause":
-      togglePlayPauseButton.html("<i class='material-icons play_circle_fill'></i>");
+      togglePlayPauseButton.html(
+        "<i class='material-icons play_circle_fill'></i>"
+      );
       disablePrevNextButtons(true);
       break;
     case "stop":
-      togglePlayPauseButton.html("<i class='material-icons play_circle_fill'></i>");
+      togglePlayPauseButton.html(
+        "<i class='material-icons play_circle_fill'></i>"
+      );
       disablePrevNextButtons(true);
       break;
     default:
@@ -312,4 +364,29 @@ function toMMSS(totalSeconds) {
 function changeVolume(volume) {
   $("span#volumePrct").html(`${volume} %`);
   $("input#volumeRange").val(volume);
+}
+
+function playHandler(event) {
+  songPos = event.currentTarget.id;
+  playSong(songPos);
+}
+
+function playSong(songPos) {
+  $.get(`/play/${songPos}`);
+}
+
+function scrollToCurentSong() {
+  $.get("/current_song", function (data, _textStatus, _jqXHR) {
+    if (data) {
+      song = JSON.parse(data);
+
+      scrollToSong(song);
+    }
+  });
+}
+
+function scrollToSong(song) {
+  $("tr#" + song["Pos"])
+    .get(0)
+    .scrollIntoView();
 }
