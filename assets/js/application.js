@@ -18,11 +18,10 @@ function updatePlaylist() {
   let playlist = $("#playlistMenu #playlistTable");
   let playlistBody = playlist.find("tbody");
 
-  $.get("/playlist", function (data, _textStatus, _jqXHR) {
-    if (data) {
+  $.get("/playlist", function (songs, _textStatus, _jqXHR) {
+    if (songs) {
       playlistBody.html("");
 
-      let songs = JSON.parse(data);
       songs.forEach(function (song) {
         let songPos = parseInt(song["pos"]) + 1;
         let row = $(`
@@ -47,17 +46,16 @@ function connect() {
   ws.onopen = function () {
     console.log(`Connected to socket ${url}`);
     bindWsEvents(ws);
-    $.get("/current_song", function (data, textStatus, jqXHR) {
-      if (data) {
-        changeCurrentSong(data);
+    $.get("/current_song", function (song, _textStatus, _jqXHR) {
+      if (song) {
+        changeCurrentSong(song);
       } else {
         $(document).prop("title", "MPD Web Client");
       }
 
       changeAlbumArt();
     });
-    $.get("/status", function (data, textStatus, jqXHR) {
-      mpd_status = JSON.parse(data);
+    $.get("/status", function (mpd_status, textStatus, jqXHR) {
       changeFavicon(mpd_status.state);
       changeButtonState(mpd_status.state);
       changeRandomButtonState(mpd_status.random);
@@ -95,7 +93,7 @@ function connect() {
 
     switch (data.action) {
       case "song":
-        changeCurrentSong(data.song);
+        changeCurrentSong(JSON.parse(data.song));
         changeAlbumArt();
         break;
       case "state":
@@ -129,7 +127,7 @@ function connect() {
 }
 
 function bindWsEvents(ws) {
-  $("button#nextSong").bind("click", function (e) {
+  $("button#nextSong").on("click", function (e) {
     message = JSON.stringify({
       action: "nextSong",
     });
@@ -138,7 +136,7 @@ function bindWsEvents(ws) {
     e.preventDefault();
   });
 
-  $("button#prevSong").bind("click", function (e) {
+  $("button#prevSong").on("click", function (e) {
     message = JSON.stringify({
       action: "prevSong",
     });
@@ -147,7 +145,7 @@ function bindWsEvents(ws) {
     e.preventDefault();
   });
 
-  $("button#togglePlayPause").bind("click", function (e) {
+  $("button#togglePlayPause").on("click", function (e) {
     message = JSON.stringify({
       action: "togglePlayPause",
     });
@@ -156,7 +154,7 @@ function bindWsEvents(ws) {
     e.preventDefault();
   });
 
-  $("button#toggleRandom").bind("click", function (e) {
+  $("button#toggleRandom").on("click", function (e) {
     message = JSON.stringify({
       action: "toggleRandom",
     });
@@ -165,7 +163,7 @@ function bindWsEvents(ws) {
     e.preventDefault();
   });
 
-  $("button#toggleRepeat").bind("click", function (e) {
+  $("button#toggleRepeat").on("click", function (e) {
     message = JSON.stringify({
       action: "toggleRepeat",
     });
@@ -174,7 +172,7 @@ function bindWsEvents(ws) {
     e.preventDefault();
   });
 
-  $("button#toggleSingle").bind("click", function (e) {
+  $("button#toggleSingle").on("click", function (e) {
     message = JSON.stringify({
       action: "toggleSingle",
     });
@@ -195,11 +193,10 @@ function bindWsEvents(ws) {
     $.post("/update");
   });
 
-  $("#exampleModal").on("show.bs.modal", function (event) {
+  $("#exampleModal").on("show.bs.modal", function () {
     modal = $(this);
 
-    $.get("/stats", function (data, textStatus, jqXHR) {
-      stats = JSON.parse(data);
+    $.get("/stats", function (stats, _textStatus, _jqXHR) {
       modal_body = modal.find(".modal-body");
 
       modal_body.find("#mpdInfo_version").text(stats.mpd_version);
@@ -244,14 +241,13 @@ function handleChangeVolumeInput(volumeInput) {
   ws.send(message);
 }
 
-function changeCurrentSong(data) {
-  song = JSON.parse(data);
-
+function changeCurrentSong(song) {
   pageTitle = `${song["Artist"]} - ${song["Title"]}`;
+  $(document).prop("title", pageTitle);
+
   $("#currentSong #artist").html(song["Artist"]);
   $("#currentSong #title").html(song["Title"]);
   $("#currentSong #album").html(song["Album"]);
-  $(document).prop("title", pageTitle);
 
   $("#playlistTable tr").removeClass("current-song");
   $("#playlistTable tr#" + song["Pos"]).addClass("current-song");
@@ -373,10 +369,8 @@ function playSong(songPos) {
 }
 
 function scrollToCurentSong() {
-  $.get("/current_song", function (data, _textStatus, _jqXHR) {
-    if (data) {
-      song = JSON.parse(data);
-
+  $.get("/current_song", function (song, _textStatus, _jqXHR) {
+    if (song) {
       scrollToSong(song);
     }
   });

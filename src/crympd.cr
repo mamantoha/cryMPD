@@ -7,6 +7,10 @@ SOCKETS = [] of HTTP::WebSocket
 
 mpd_client = MPDClient.new(SOCKETS)
 
+before_get ["/current_song", "/status", "/stats", "/playlist"] do |env|
+  env.response.content_type = "application/json"
+end
+
 get "/" do
   render "views/index.ecr"
 end
