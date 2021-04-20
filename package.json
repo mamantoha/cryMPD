@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/mamantoha/cryMPD#readme",
   "devDependencies": {
-    "css-loader": "^5.2.3",
+    "css-loader": "^5.2.4",
     "expose-loader": "^2.0.0",
     "material-icons": "^0.6.1",
     "mini-css-extract-plugin": "^1.5.0",
