@@ -14,7 +14,7 @@ class MPDClient
 
   private def set_callbacks
     @client.on :song do |_song|
-      if song = current_song
+      if song = client.currentsong
         data = {"action" => "song", "song" => song}
 
         SOCKETS.each(&.send(data.to_json))
@@ -68,12 +68,6 @@ class MPDClient
       data = {"action" => "playlist"}
 
       SOCKETS.each(&.send(data.to_json))
-    end
-  end
-
-  def current_song : String?
-    if current_song = client.currentsong
-      current_song.to_json
     end
   end
 

@@ -93,7 +93,7 @@ function connect() {
 
     switch (data.action) {
       case "song":
-        changeCurrentSong(JSON.parse(data.song));
+        changeCurrentSong(data.song);
         changeAlbumArt();
         break;
       case "state":

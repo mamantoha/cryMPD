@@ -16,7 +16,7 @@ get "/" do
 end
 
 get "/current_song" do
-  mpd_client.current_song
+  mpd_client.currentsong.to_json
 end
 
 get "/status" do
