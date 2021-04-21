@@ -116,4 +116,5 @@ ws "/mpd" do |socket|
   end
 end
 
+Kemal.config.app_name = "cryMPD"
 Kemal.run
