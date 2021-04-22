@@ -55,8 +55,8 @@ get "/playlist" do
       songs << {
         "id"       => song["Id"],
         "pos"      => song["Pos"],
-        "artist"   => song["Artist"]? || "",
-        "title"    => song["Title"]? || "",
+        "artist"   => song["Artist"]? || "Unknown Artist",
+        "title"    => song["Title"]? || "Unknown Track",
         "duration" => "#{time.minutes}:#{time.seconds.to_s.rjust(2, '0')}",
       }
     end
@@ -117,4 +117,5 @@ ws "/mpd" do |socket|
 end
 
 Kemal.config.app_name = "cryMPD"
+Kemal.config.port = 3001
 Kemal.run
