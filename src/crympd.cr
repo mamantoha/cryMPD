@@ -7,12 +7,16 @@ SOCKETS = [] of HTTP::WebSocket
 
 mpd_client = MPDClient.new(SOCKETS)
 
+before_get ["/current_song", "/status", "/stats", "/playlist"] do |env|
+  env.response.content_type = "application/json"
+end
+
 get "/" do
   render "views/index.ecr"
 end
 
 get "/current_song" do
-  mpd_client.current_song
+  mpd_client.currentsong.to_json
 end
 
 get "/status" do
@@ -39,6 +43,32 @@ get "/stats" do
   end
 
   stats.to_json
+end
+
+get "/playlist" do
+  songs = [] of Hash(String, String)
+
+  if data = mpd_client.playlistinfo
+    data.each do |song|
+      time = Time::Span.new(seconds: song["Time"].to_i)
+
+      songs << {
+        "id"       => song["Id"],
+        "pos"      => song["Pos"],
+        "artist"   => song["Artist"]? || "Unknown Artist",
+        "title"    => song["Title"]? || "Unknown Track",
+        "duration" => "#{time.minutes}:#{time.seconds.to_s.rjust(2, '0')}",
+      }
+    end
+  end
+
+  songs.to_json
+end
+
+get "/play/:songpos" do |env|
+  songpos = env.params.url["songpos"].to_i
+
+  mpd_client.play(songpos)
 end
 
 get "/albumart" do |env|
@@ -86,4 +116,6 @@ ws "/mpd" do |socket|
   end
 end
 
+Kemal.config.app_name = "cryMPD"
+Kemal.config.port = 3001
 Kemal.run

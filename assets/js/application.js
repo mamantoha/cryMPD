@@ -1,6 +1,43 @@
 $(document).ready(function () {
   connect();
+  updatePlaylist();
+  bindEvents();
 });
+
+function bindEvents() {
+  $(".dropdown-menu.playlist-menu").on("click", function (event) {
+    event.stopPropagation();
+  });
+
+  $("#playlistMenu").on("show.bs.dropdown", function () {
+    scrollToCurentSong();
+  });
+}
+
+function updatePlaylist() {
+  let playlist = $("#playlistMenu #playlistTable");
+  let playlistBody = playlist.find("tbody");
+
+  $.get("/playlist", function (songs, _textStatus, _jqXHR) {
+    if (songs) {
+      playlistBody.html("");
+
+      songs.forEach(function (song) {
+        let songPos = parseInt(song["pos"]) + 1;
+        let row = $(`
+          <tr class="playlistSong" id="${song["pos"]}">
+            <td>${songPos}</td>
+            <td>${song["artist"]}</td>
+            <td>${song["title"]}</td>
+            <td>${song["duration"]}</td>
+          </tr>
+        `);
+        playlistBody.append(row);
+        row.on("click", playHandler);
+      });
+    }
+  });
+}
 
 function connect() {
   url = `ws://${location.host}/mpd`;
@@ -8,18 +45,17 @@ function connect() {
 
   ws.onopen = function () {
     console.log(`Connected to socket ${url}`);
-    bindEvents(ws);
-    $.get("/current_song", function (data, textStatus, jqXHR) {
-      if (data) {
-        changeSongTitle(data);
+    bindWsEvents(ws);
+    $.get("/current_song", function (song, _textStatus, _jqXHR) {
+      if (song) {
+        changeCurrentSong(song);
       } else {
         $(document).prop("title", "MPD Web Client");
       }
 
       changeAlbumArt();
     });
-    $.get("/status", function (data, textStatus, jqXHR) {
-      mpd_status = JSON.parse(data);
+    $.get("/status", function (mpd_status, textStatus, jqXHR) {
       changeFavicon(mpd_status.state);
       changeButtonState(mpd_status.state);
       changeRandomButtonState(mpd_status.random);
@@ -57,7 +93,7 @@ function connect() {
 
     switch (data.action) {
       case "song":
-        changeSongTitle(data.song);
+        changeCurrentSong(data.song);
         changeAlbumArt();
         break;
       case "state":
@@ -82,14 +118,16 @@ function connect() {
         volume = data.volume;
         changeVolume(volume);
         break;
+      case "playlist":
+        updatePlaylist();
       default:
       // nothing
     }
   };
 }
 
-function bindEvents(ws) {
-  $("button#nextSong").bind("click", function (e) {
+function bindWsEvents(ws) {
+  $("button#nextSong").on("click", function (e) {
     message = JSON.stringify({
       action: "nextSong",
     });
@@ -98,7 +136,7 @@ function bindEvents(ws) {
     e.preventDefault();
   });
 
-  $("button#prevSong").bind("click", function (e) {
+  $("button#prevSong").on("click", function (e) {
     message = JSON.stringify({
       action: "prevSong",
     });
@@ -107,7 +145,7 @@ function bindEvents(ws) {
     e.preventDefault();
   });
 
-  $("button#togglePlayPause").bind("click", function (e) {
+  $("button#togglePlayPause").on("click", function (e) {
     message = JSON.stringify({
       action: "togglePlayPause",
     });
@@ -116,7 +154,7 @@ function bindEvents(ws) {
     e.preventDefault();
   });
 
-  $("button#toggleRandom").bind("click", function (e) {
+  $("button#toggleRandom").on("click", function (e) {
     message = JSON.stringify({
       action: "toggleRandom",
     });
@@ -125,7 +163,7 @@ function bindEvents(ws) {
     e.preventDefault();
   });
 
-  $("button#toggleRepeat").bind("click", function (e) {
+  $("button#toggleRepeat").on("click", function (e) {
     message = JSON.stringify({
       action: "toggleRepeat",
     });
@@ -134,7 +172,7 @@ function bindEvents(ws) {
     e.preventDefault();
   });
 
-  $("button#toggleSingle").bind("click", function (e) {
+  $("button#toggleSingle").on("click", function (e) {
     message = JSON.stringify({
       action: "toggleSingle",
     });
@@ -151,15 +189,14 @@ function bindEvents(ws) {
     handleChangeVolumeInput(this);
   });
 
-  $("#updateDB").click(function() {
+  $("#updateDB").on("click", function () {
     $.post("/update");
   });
 
-  $("#exampleModal").on("show.bs.modal", function (event) {
+  $("#exampleModal").on("show.bs.modal", function () {
     modal = $(this);
 
-    $.get("/stats", function (data, textStatus, jqXHR) {
-      stats = JSON.parse(data);
+    $.get("/stats", function (stats, _textStatus, _jqXHR) {
       modal_body = modal.find(".modal-body");
 
       modal_body.find("#mpdInfo_version").text(stats.mpd_version);
@@ -204,14 +241,16 @@ function handleChangeVolumeInput(volumeInput) {
   ws.send(message);
 }
 
-function changeSongTitle(data) {
-  song = JSON.parse(data);
-
+function changeCurrentSong(song) {
   pageTitle = `${song["Artist"]} - ${song["Title"]}`;
+  $(document).prop("title", pageTitle);
+
   $("#currentSong #artist").html(song["Artist"]);
   $("#currentSong #title").html(song["Title"]);
   $("#currentSong #album").html(song["Album"]);
-  $(document).prop("title", pageTitle);
+
+  $("#playlistTable tr").removeClass("current-song");
+  $("#playlistTable tr#" + song["Pos"]).addClass("current-song");
 }
 
 function changeAlbumArt() {
@@ -224,15 +263,21 @@ function changeButtonState(state) {
 
   switch (state) {
     case "play":
-      togglePlayPauseButton.html("<i class='material-icons pause_circle_filled'></i>");
+      togglePlayPauseButton.html(
+        "<i class='material-icons pause_circle_filled'></i>"
+      );
       disablePrevNextButtons(false);
       break;
     case "pause":
-      togglePlayPauseButton.html("<i class='material-icons play_circle_fill'></i>");
+      togglePlayPauseButton.html(
+        "<i class='material-icons play_circle_fill'></i>"
+      );
       disablePrevNextButtons(true);
       break;
     case "stop":
-      togglePlayPauseButton.html("<i class='material-icons play_circle_fill'></i>");
+      togglePlayPauseButton.html(
+        "<i class='material-icons play_circle_fill'></i>"
+      );
       disablePrevNextButtons(true);
       break;
     default:
@@ -312,4 +357,27 @@ function toMMSS(totalSeconds) {
 function changeVolume(volume) {
   $("span#volumePrct").html(`${volume} %`);
   $("input#volumeRange").val(volume);
+}
+
+function playHandler(event) {
+  songPos = event.currentTarget.id;
+  playSong(songPos);
+}
+
+function playSong(songPos) {
+  $.get(`/play/${songPos}`);
+}
+
+function scrollToCurentSong() {
+  $.get("/current_song", function (song, _textStatus, _jqXHR) {
+    if (song) {
+      scrollToSong(song);
+    }
+  });
+}
+
+function scrollToSong(song) {
+  $("tr#" + song["Pos"])
+    .get(0)
+    .scrollIntoView();
 }
