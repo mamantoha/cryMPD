@@ -248,6 +248,7 @@ function changeCurrentSong(song) {
   $("#currentSong #artist").html(song["Artist"]);
   $("#currentSong #title").html(song["Title"]);
   $("#currentSong #album").html(song["Album"]);
+  $("#currentSong #date").html(song["Date"]);
 
   $("#playlistTable tr").removeClass("table-primary");
   $("#playlistTable tr#" + song["Pos"]).addClass("table-primary");
