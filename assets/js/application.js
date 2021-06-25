@@ -249,8 +249,8 @@ function changeCurrentSong(song) {
   $("#currentSong #title").html(song["Title"]);
   $("#currentSong #album").html(song["Album"]);
 
-  $("#playlistTable tr").removeClass("current-song");
-  $("#playlistTable tr#" + song["Pos"]).addClass("current-song");
+  $("#playlistTable tr").removeClass("table-primary");
+  $("#playlistTable tr#" + song["Pos"]).addClass("table-primary");
 }
 
 function changeAlbumArt() {

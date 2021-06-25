@@ -107,12 +107,4 @@ img#albumCover {
   tr.playlistSong {
     cursor: pointer;
   }
-
-  tr.current-song {
-    background-color: #467efb;
-  }
-
-  .table-hover tbody tr.current-song:hover {
-    background-color: #6c757d !important;
-  }
 }
