@@ -8,11 +8,13 @@ Control [Music Player Daemon](https://www.musicpd.org/) audio playing in the bro
 
 ## Features
 
-- [x] Controlling playback (play, pause, skip next and skip back)
+- [x] Controlling playback (play, pause, skip next, and skip back)
 - [x] Scroll current song
-- [x] Playback options (shuffle, repeat, repeat once, cycle)
+- [x] Playback options (shuffle, repeat, and repeat once)
 - [x] Change volume
 - [x] Change song in the playlist
+- [x] A database update
+- [x] Displays statistics
 
 ## Develpment
 
