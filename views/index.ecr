@@ -104,21 +104,30 @@
           <span>Playback</span>
         </div>
         <div class="card-body">
-          <div class="thumbnail">
-            <img class="mr-3" id="albumCover" src="/albumart">
-          </div>
+          <div class="d-flex">
+            <div>
+              <div class="thumbnail">
+                <img class="me-3" id="albumCover" src="/albumart">
+              </div>
+            </div>
 
-          <div class="breakAll">
-            <h5 class="mt-0" id="title"></h5>
-            <small>Atrist</small>
-            <pre id="artist"></pre>
-            <small>Album</small>
-            <pre id="album"></pre>
+            <div class="container-fluid">
+              <div class="songInfo">
+                <h5 class="mt-0" id="title"></h5>
+                <small>Atrist</small>
+                <pre id="artist"></pre>
+                <small>Album</small>
+                <pre id="album"></pre>
+              </div>
+            </div>
           </div>
         </div>
+
         <div class="card-footer">
-          <div class="d-flex align-items-center">
-            <input type="range" min="0" max="1000" step="1" class="form-control-range" id="progressBar">
+          <div class="d-flex">
+            <div class="container-fluid">
+              <input type="range" min="0" max="1000" step="1" class="form-control-range w-100" id="progressBar">
+            </div>
             <div class="timestamp"></div>
           </div>
         </div>
