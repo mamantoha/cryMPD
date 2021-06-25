@@ -212,13 +212,13 @@ function bindWsEvents(ws) {
 }
 
 function unbindEvents() {
-  $("button#nextSong").unbind("click");
-  $("button#prevSong").unbind("click");
-  $("button#togglePlayPause").unbind("click");
-  $("button#toggleRandom").unbind("click");
-  $("button#toggleRepeat").unbind("click");
-  $("button#toggleSingle").unbind("click");
-  $("input#volumeRange").unbind();
+  $("button#nextSong").off("click");
+  $("button#prevSong").off("click");
+  $("button#togglePlayPause").off("click");
+  $("button#toggleRandom").off("click");
+  $("button#toggleRepeat").off("click");
+  $("button#toggleSingle").off("click");
+  $("input#volumeRange").off();
 }
 
 function handleChangeProgressInput(progressInput) {
