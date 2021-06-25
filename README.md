@@ -6,6 +6,14 @@ Control [Music Player Daemon](https://www.musicpd.org/) audio playing in the bro
 
 ![Screenshot](https://github.com/mamantoha/cryMPD/raw/master/public/images/screenshot.png)
 
+## Features
+
+* [x] Controlling playback (play, pause, skip next and skip back)
+* [x] Scroll current song
+* [x] Playback options (shuffle, repeat, repeat once, cycle)
+* [x] Change volume
+* [x] Change song in the playlist
+
 ## Develpment
 
 ```console
