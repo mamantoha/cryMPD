@@ -5,8 +5,8 @@ class MPDClient
     MPD::Log.level = :error
     MPD::Log.backend = ::Log::IOBackend.new
 
-    # @client = MPD::Client.new("localhost", 6600, with_callbacks: true)
-    @client = MPD::Client.new("/run/mpd/socket", with_callbacks: true)
+    @client = MPD::Client.new("localhost", 6600, with_callbacks: true)
+    # @client = MPD::Client.new("/run/mpd/socket", with_callbacks: true)
     @client.callbacks_timeout = 100.milliseconds
 
     set_callbacks
