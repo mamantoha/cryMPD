@@ -16,16 +16,35 @@ Control [Music Player Daemon](https://www.musicpd.org/) audio playing in the bro
 - [x] A database update
 - [x] Displays statistics
 
-## Develpment
+## Usage
+
+`cryMPD` requires [Crystal](https://crystal-lang.org/install/) and [Node.js](https://nodejs.org/en/download/) to be installed.
+
+Clone this repository:
+
+```console
+https://github.com/mamantoha/cryMPD.git
+cd cryMPD
+```
+
+Install and build `npm` dependencies:
 
 ```console
 npm install
 npm run build
 ```
 
+Install Crystal dependencies:
+
 ```console
 shards install
-crystal src/crympd.cr
+```
+
+Run server:
+
+```console
+crystal ./src/crympd.cr
+[development] cryMPD is ready to lead at http://0.0.0.0:3001
 ```
 
 ## Contributing
