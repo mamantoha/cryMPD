@@ -26,6 +26,8 @@ The project offers precompiled binary packages for Linux and macOS.
 
 Download the latest `crympd_(PLATFORM).zip` from [actions](https://github.com/mamantoha/cryMPD/actions) and unpack to a new folder.
 
+At the bottom of the workflow summary page, there is a dedicated section for artifacts.
+
 Run (from created folder)
 
 ```
