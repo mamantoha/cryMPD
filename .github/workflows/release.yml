@@ -1,0 +1,45 @@
+name: Release
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  release:
+    name: Publish for ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        include:
+          - os: ubuntu-latest
+            asset_suffix: linux-amd64
+          - os: macos-latest
+            asset_suffix: darwin-amd64
+      fail-fast: false
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Install Crystal
+        uses: crystal-lang/install-crystal@v1
+      - name: Setup node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - run: npm install
+      - run: npm run build
+      - name: Install Crystal dependencies
+        run: shards install
+      - name: Compile release
+        run: |
+          crystal -v
+          shards build --release
+      - uses: actions/upload-artifact@v2
+        with:
+          name: crympd_${{ matrix.asset_suffix }}
+          path: |
+            bin/crympd
+            public/
+            views/
