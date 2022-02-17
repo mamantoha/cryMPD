@@ -58,13 +58,13 @@ class MPDClient
       SOCKETS.each(&.send(data.to_json))
     end
 
-    @client.on :playlist do |volume|
+    @client.on :playlist do
       data = {"action" => "playlist"}
 
       SOCKETS.each(&.send(data.to_json))
     end
 
-    @client.on :playlistlength do |volume|
+    @client.on :playlistlength do
       data = {"action" => "playlist"}
 
       SOCKETS.each(&.send(data.to_json))
