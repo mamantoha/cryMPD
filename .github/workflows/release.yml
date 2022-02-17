@@ -1,0 +1,20 @@
+name: Release
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Crystal
+        uses: crystal-lang/install-crystal@v1
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - name: Install Crystal dependencies
+        run: shards install
+      - name: Compile release
+        run: |
+          crystal -v
+          shards build --release
