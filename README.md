@@ -16,7 +16,24 @@ Control [Music Player Daemon](https://www.musicpd.org/) audio playing in the bro
 - [x] A database update
 - [x] Displays statistics
 
-## Usage
+## Install
+
+You can install `cryMPD` in different ways.
+
+### Binaries
+
+The project offers precompiled binary packages for Linux and macOS.
+
+Download the latest `crympd_(PLATFORM).zip` from [actions](https://github.com/mamantoha/cryMPD/actions) and unpack to a new folder.
+
+Run (from created folder)
+
+```
+./bin/crympd
+[development] cryMPD is ready to lead at http://0.0.0.0:3001
+```
+
+### From sources
 
 `cryMPD` requires [Crystal](https://crystal-lang.org/install/) and [Node.js](https://nodejs.org/en/download/) to be installed.
 
@@ -24,7 +41,7 @@ Clone this repository:
 
 ```console
 https://github.com/mamantoha/cryMPD.git
-cd cryMPD
+cd cryMPD/
 ```
 
 Install and build `npm` dependencies:
