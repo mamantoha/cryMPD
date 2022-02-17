@@ -38,7 +38,7 @@ jobs:
           shards build --release
       - uses: actions/upload-artifact@v2
         with:
-          name: ${{ matrix.asset_suffix }}
+          name: crympd_${{ matrix.asset_suffix }}
           path: |
             bin/crympd
             public/
