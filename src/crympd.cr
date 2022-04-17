@@ -3,6 +3,10 @@ require "kemal"
 require "crystal_mpd"
 require "./mpd_client"
 
+macro assets_version
+  {{ `git rev-parse --short HEAD || echo -n "unknown"`.chomp.stringify }}
+end
+
 SOCKETS = [] of HTTP::WebSocket
 
 mpd_client = MPDClient.new(SOCKETS)
