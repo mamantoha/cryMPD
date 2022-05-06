@@ -9,6 +9,7 @@ dependencies:
     github: kemalcr/kemal
   crystal_mpd:
     github: mamantoha/crystal_mpd
+    branch: master
 
 targets:
   crympd:
