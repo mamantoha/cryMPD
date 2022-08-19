@@ -1,3 +1,4 @@
+# NOTICE: This lockfile contains some overrides from shard.override.yml
 version: 2.0
 shards:
   backtracer:
@@ -10,11 +11,11 @@ shards:
 
   exception_page:
     git: https://github.com/crystal-loot/exception_page.git
-    version: 0.2.2
+    version: 0.3.0
 
-  kemal:
+  kemal: # Overridden
     git: https://github.com/kemalcr/kemal.git
-    version: 1.2.0
+    version: 1.2.0+git.commit.93521b712031d8a01004fdf21ddfc75784f83c91
 
   radix:
     git: https://github.com/luislavena/radix.git
