@@ -2,7 +2,7 @@ version: 2.0
 shards:
   backtracer:
     git: https://github.com/sija/backtracer.cr.git
-    version: 1.2.1
+    version: 1.2.2
 
   crystal_mpd:
     git: https://github.com/mamantoha/crystal_mpd.git
