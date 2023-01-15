@@ -7,7 +7,7 @@ shards:
 
   crystal_mpd:
     git: https://github.com/mamantoha/crystal_mpd.git
-    version: 0.15.0+git.commit.c9d02c50470405c09f3c7dc998fb43ef2528f98f
+    version: 0.15.1+git.commit.b3c4be69cb75f2ca9555c8ea4b9e08d6b8b1b33f
 
   exception_page:
     git: https://github.com/crystal-loot/exception_page.git
