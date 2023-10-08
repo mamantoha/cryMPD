@@ -22,19 +22,19 @@
   },
   "homepage": "https://github.com/mamantoha/cryMPD#readme",
   "devDependencies": {
-    "css-loader": "^6.7.3",
-    "expose-loader": "^4.0.0",
-    "material-icons": "^1.13.1",
-    "mini-css-extract-plugin": "^2.7.2",
-    "node-sass": "^8.0.0",
-    "sass-loader": "^13.2.0",
-    "style-loader": "^3.3.1",
-    "webpack": "^5.76.0",
-    "webpack-cli": "^5.0.1"
+    "css-loader": "^6.8.1",
+    "expose-loader": "^4.1.0",
+    "material-icons": "^1.13.12",
+    "mini-css-extract-plugin": "^2.7.6",
+    "node-sass": "^9.0.0",
+    "sass-loader": "^13.3.2",
+    "style-loader": "^3.3.3",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
   },
   "dependencies": {
-    "bootstrap": "^5.2.3",
-    "jquery": "^3.6.3",
+    "bootstrap": "^5.3.2",
+    "jquery": "^3.7.1",
     "material-design-icons-iconfont": "^6.7.0",
     "popper.js": "^1.16.1"
   }
