@@ -181,7 +181,7 @@ function bindWsEvents(ws) {
     e.preventDefault();
   });
 
-  $("input#progressBar").on("input", function () {
+  $("input#progressBar").on("change", function () {
     handleChangeProgressInput(this);
   });
 
