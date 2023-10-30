@@ -55,7 +55,7 @@ function connect() {
 
       changeAlbumArt();
     });
-    $.get("/status", function (mpd_status, textStatus, jqXHR) {
+    $.get("/status", function (mpd_status, _textStatus, _jqXHR) {
       changeFavicon(mpd_status.state);
       changeButtonState(mpd_status.state);
       changeRandomButtonState(mpd_status.random);
