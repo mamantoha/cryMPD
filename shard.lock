@@ -7,15 +7,15 @@ shards:
 
   crystal_mpd:
     git: https://github.com/mamantoha/crystal_mpd.git
-    version: 0.15.1+git.commit.6d22bfdbc57670e896cc14a7c75e22f61bd34960
+    version: 0.15.1+git.commit.390d23b4d5535389c872fdc827a5a8c09f3f050a
 
   exception_page:
     git: https://github.com/crystal-loot/exception_page.git
-    version: 0.3.0
+    version: 0.3.1
 
   kemal: # Overridden
     git: https://github.com/kemalcr/kemal.git
-    version: 1.3.0+git.commit.ae7cda829162ea27668b3fc79cd1868026e25098
+    version: 1.4.0+git.commit.cb9adcd188162f1e3c83ff98263d3587b9a2f9ab
 
   radix:
     git: https://github.com/luislavena/radix.git
