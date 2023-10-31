@@ -90,7 +90,6 @@ get "/albumart" do |env|
       send_file env, binary.to_slice, data["type"]
     end
   else
-
     send_file env, Filesystem.get("images/record_placeholder.jpg").gets_to_end.to_slice, "image/jpeg"
   end
 rescue
