@@ -2,6 +2,7 @@ require "json"
 require "kemal"
 require "crystal_mpd"
 require "./mpd_client"
+require "./filesystem"
 
 macro assets_version
   {{ `git rev-parse --short HEAD || echo -n "unknown"`.chomp.stringify }}
@@ -13,6 +14,12 @@ mpd_client = MPDClient.new(SOCKETS)
 
 before_get ["/current_song", "/status", "/stats", "/playlist"] do |env|
   env.response.content_type = "application/json"
+end
+
+Filesystem.files.each do |file|
+  get(file.path) do |env|
+    Filesystem.serve(file, env)
+  end
 end
 
 get "/" do
@@ -83,10 +90,11 @@ get "/albumart" do |env|
       send_file env, binary.to_slice, data["type"]
     end
   else
-    send_file env, "./public/images/record_placeholder.jpg", "image/jpeg"
+
+    send_file env, Filesystem.get("images/record_placeholder.jpg").gets_to_end.to_slice, "image/jpeg"
   end
 rescue
-  send_file env, "./public/images/record_placeholder.jpg", "image/jpeg"
+  send_file env, Filesystem.get("images/record_placeholder.jpg").gets_to_end.to_slice, "image/jpeg"
 end
 
 ws "/mpd" do |socket|
