@@ -10,6 +10,8 @@ dependencies:
   crystal_mpd:
     github: mamantoha/crystal_mpd
     branch: master
+  baked_file_system:
+    github: schovi/baked_file_system
 
 targets:
   crympd:

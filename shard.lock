@@ -5,6 +5,10 @@ shards:
     git: https://github.com/sija/backtracer.cr.git
     version: 1.2.2
 
+  baked_file_system:
+    git: https://github.com/schovi/baked_file_system.git
+    version: 0.10.0
+
   crystal_mpd:
     git: https://github.com/mamantoha/crystal_mpd.git
     version: 0.15.1+git.commit.390d23b4d5535389c872fdc827a5a8c09f3f050a
