@@ -10,7 +10,31 @@ end
 
 SOCKETS = [] of HTTP::WebSocket
 
-mpd_client = MPDClient.new(SOCKETS)
+mpd_host = "localhost"
+mpd_port = 6600
+
+OptionParser.parse do |parser|
+  parser.on("--mpd_host MPD_HOST", "MPD Host") do |opt|
+    mpd_host = opt
+  end
+
+  parser.on("--mpd_port MPD_PORT", "MPD Port") do |opt|
+    mpd_port = opt.to_i? || mpd_port
+  end
+
+  parser.invalid_option do |flag|
+    # Do nothing
+  end
+end
+
+Kemal.config do |config|
+  config.extra_options do |parser|
+    parser.on("--mpd_host MPD_HOST", "MPD Host") { |_opt| }
+    parser.on("--mpd_port MPD_PORT", "MPD Port") { |_opt| }
+  end
+end
+
+mpd_client = MPDClient.new(SOCKETS, mpd_host, mpd_port)
 
 before_get ["/current_song", "/status", "/stats", "/playlist"] do |env|
   env.response.content_type = "application/json"

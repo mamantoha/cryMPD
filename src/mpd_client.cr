@@ -1,11 +1,11 @@
 class MPDClient
   getter client
 
-  def initialize(@sockets : Array(HTTP::WebSocket))
+  def initialize(@sockets : Array(HTTP::WebSocket), mpd_host : String, mpd_port : Int32)
     MPD::Log.level = :error
     MPD::Log.backend = ::Log::IOBackend.new
 
-    @client = MPD::Client.new("localhost", 6600, with_callbacks: true)
+    @client = MPD::Client.new(mpd_host, mpd_port, with_callbacks: true)
     # @client = MPD::Client.new("/run/mpd/socket", with_callbacks: true)
     @client.callbacks_timeout = 100.milliseconds
 
