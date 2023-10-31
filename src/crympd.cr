@@ -28,8 +28,8 @@ end
 # A workaround for reading extra options before initializing the Kemal application.
 Kemal.config do |config|
   config.extra_options do |parser|
-    parser.on("--mpd_host MPD_HOST", "MPD Host") {  }
-    parser.on("--mpd_port MPD_PORT", "MPD Port") {  }
+    parser.on("--mpd_host MPD_HOST", "MPD Host") { }
+    parser.on("--mpd_port MPD_PORT", "MPD Port") { }
   end
 end
 
