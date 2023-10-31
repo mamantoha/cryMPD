@@ -1,5 +1,5 @@
 name: cryMPD
-version: 0.1.0
+version: 0.2.0
 
 authors:
   - Anton Maminov <anton.maminov@gmail.com>
@@ -17,6 +17,6 @@ targets:
   crympd:
     main: src/crympd.cr
 
-crystal: 1.7.1
+crystal: 1.10.0
 
 license: MIT

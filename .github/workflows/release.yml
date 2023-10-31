@@ -2,8 +2,8 @@ name: Release
 
 on:
   push:
-  pull_request:
-
+    tags:
+      - "*"
 jobs:
   release:
     name: Publish for ${{ matrix.os }}
@@ -14,8 +14,10 @@ jobs:
         os: [ubuntu-latest, macos-latest]
         include:
           - os: ubuntu-latest
+            target_name: crympd
             asset_suffix: linux-amd64
           - os: macos-latest
+            target_name: crympd
             asset_suffix: darwin-amd64
       fail-fast: false
 
@@ -36,10 +38,11 @@ jobs:
         run: |
           crystal -v
           shards build --release
-      - uses: actions/upload-artifact@v3
+      - name: Add binaries to release
+        uses: svenstaro/upload-release-action@v2
         with:
-          name: crympd_${{ matrix.asset_suffix }}
-          path: |
-            bin/crympd
-            public/
-            views/
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: bin/${{ matrix.target_name }}
+          asset_name: ${{ matrix.target_name }}_${{ github.ref_name }}_${{ matrix.asset_suffix }}
+          tag: ${{ github.ref }}
+          overwrite: true
