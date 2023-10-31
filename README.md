@@ -66,6 +66,10 @@ crystal ./src/crympd.cr
 [development] cryMPD is ready to lead at http://0.0.0.0:3001
 ```
 
+```console
+crystal ./src/crympd.cr --mpd_host 192.168.1.1 --mpd_port 6601
+```
+
 ## Contributing
 
 1. Fork it (<https://github.com/mamantoha/cryMPD/fork>)

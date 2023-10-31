@@ -22,15 +22,14 @@ OptionParser.parse do |parser|
     mpd_port = opt.to_i? || mpd_port
   end
 
-  parser.invalid_option do |flag|
-    # Do nothing
-  end
+  parser.invalid_option { }
 end
 
+# A workaround for reading extra options before initializing the Kemal application.
 Kemal.config do |config|
   config.extra_options do |parser|
-    parser.on("--mpd_host MPD_HOST", "MPD Host") { |_opt| }
-    parser.on("--mpd_port MPD_PORT", "MPD Port") { |_opt| }
+    parser.on("--mpd_host MPD_HOST", "MPD Host") {  }
+    parser.on("--mpd_port MPD_PORT", "MPD Port") {  }
   end
 end
 
