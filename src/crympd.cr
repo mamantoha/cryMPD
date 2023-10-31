@@ -14,11 +14,11 @@ mpd_host = "localhost"
 mpd_port = 6600
 
 OptionParser.parse do |parser|
-  parser.on("--mpd_host MPD_HOST", "MPD Host") do |opt|
+  parser.on("--mpd_host MPD_HOST", "MPD Host (defaults to #{mpd_host})") do |opt|
     mpd_host = opt
   end
 
-  parser.on("--mpd_port MPD_PORT", "MPD Port") do |opt|
+  parser.on("--mpd_port MPD_PORT", "MPD Port (defaults to #{mpd_port})") do |opt|
     mpd_port = opt.to_i? || mpd_port
   end
 
@@ -28,8 +28,8 @@ end
 # A workaround for reading extra options before initializing the Kemal application.
 Kemal.config do |config|
   config.extra_options do |parser|
-    parser.on("--mpd_host MPD_HOST", "MPD Host") { }
-    parser.on("--mpd_port MPD_PORT", "MPD Port") { }
+    parser.on("--mpd_host MPD_HOST", "MPD Host (defaults to #{mpd_host})") { }
+    parser.on("--mpd_port MPD_PORT", "MPD Port (defaults to #{mpd_port})") { }
   end
 end
 
