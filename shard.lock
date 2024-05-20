@@ -15,11 +15,11 @@ shards:
 
   exception_page:
     git: https://github.com/crystal-loot/exception_page.git
-    version: 0.3.1
+    version: 0.4.1
 
   kemal: # Overridden
     git: https://github.com/kemalcr/kemal.git
-    version: 1.4.0+git.commit.cb9adcd188162f1e3c83ff98263d3587b9a2f9ab
+    version: 1.5.0+git.commit.5554d3d2f1b7496e850df48663c48765aa8af511
 
   radix:
     git: https://github.com/luislavena/radix.git
