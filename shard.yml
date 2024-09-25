@@ -12,6 +12,8 @@ dependencies:
     branch: master
   baked_file_system:
     github: schovi/baked_file_system
+  ip_address_list:
+    github: mamantoha/ip_address_list
 
 targets:
   crympd:

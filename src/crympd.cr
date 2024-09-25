@@ -1,6 +1,7 @@
 require "json"
 require "kemal"
 require "crystal_mpd"
+require "ip_address_list"
 require "./mpd_client"
 require "./filesystem"
 
@@ -150,6 +151,16 @@ ws "/mpd" do |socket|
   socket.on_close do
     SOCKETS.delete(socket)
   end
+end
+
+def local_ip_address : Socket::IPAddress?
+  Socket.ip_address_list.find do |ip_address|
+    ip_address.family == Socket::Family::INET && ip_address.private? && !ip_address.address.starts_with?("127")
+  end
+end
+
+if Kemal.config.host_binding == "0.0.0.0"
+  local_ip_address.try { |addr| Kemal.config.host_binding = addr.address }
 end
 
 Kemal.config.app_name = "cryMPD"

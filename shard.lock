@@ -17,6 +17,10 @@ shards:
     git: https://github.com/crystal-loot/exception_page.git
     version: 0.4.1
 
+  ip_address_list:
+    git: https://github.com/mamantoha/ip_address_list.git
+    version: 0.1.1
+
   kemal: # Overridden
     git: https://github.com/kemalcr/kemal.git
     version: 1.5.0+git.commit.3243b8e0e03568ad3bd9f0ad6f445c871605b821
