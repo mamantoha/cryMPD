@@ -96,7 +96,7 @@ img#albumCover {
 
 .playlist-menu {
   padding: 0;
-  width: 50vw;
+  width: calc(100vw - 20px);
   height: auto;
   max-height: calc(100vh - 60px);
   overflow-x: hidden;
