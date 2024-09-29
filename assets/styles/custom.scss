@@ -20,11 +20,24 @@ body {
   justify-content: center;
 }
 
-#mediaControls, #playbackControls {
+#currentSong {
+  border-radius: 0;
+}
+
+#mediaControls {
   button {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+#playbackControls {
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0;
   }
 }
 
