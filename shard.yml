@@ -19,6 +19,6 @@ targets:
   crympd:
     main: src/crympd.cr
 
-crystal: 1.13.3
+crystal: 1.15.0
 
 license: MIT
