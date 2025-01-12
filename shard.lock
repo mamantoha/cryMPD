@@ -11,11 +11,11 @@ shards:
 
   crystal_mpd:
     git: https://github.com/mamantoha/crystal_mpd.git
-    version: 0.15.3+git.commit.4d1f15cdd0b219ed07127071c1c13e8945bf96c0
+    version: 0.15.3+git.commit.873480ce288881f4fde4f27af873762ce1207b3a
 
   exception_page:
     git: https://github.com/crystal-loot/exception_page.git
-    version: 0.4.1
+    version: 0.5.0
 
   ip_address_list:
     git: https://github.com/mamantoha/ip_address_list.git
@@ -23,7 +23,7 @@ shards:
 
   kemal: # Overridden
     git: https://github.com/kemalcr/kemal.git
-    version: 1.5.0+git.commit.85fcbbee02c43b8893e7bea4a2c886305bde13ec
+    version: 1.6.0+git.commit.a9324bee6ffe01e4f5629e7afcde8f590a8eabb4
 
   radix:
     git: https://github.com/luislavena/radix.git
