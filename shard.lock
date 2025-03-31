@@ -3,7 +3,7 @@ version: 2.0
 shards:
   backtracer:
     git: https://github.com/sija/backtracer.cr.git
-    version: 1.2.2
+    version: 1.2.4
 
   baked_file_system:
     git: https://github.com/schovi/baked_file_system.git
@@ -11,7 +11,7 @@ shards:
 
   crystal_mpd:
     git: https://github.com/mamantoha/crystal_mpd.git
-    version: 0.15.3+git.commit.873480ce288881f4fde4f27af873762ce1207b3a
+    version: 0.16.0+git.commit.e833045a4f0cbdbdbaf3e1036a2a7137589b2452
 
   exception_page:
     git: https://github.com/crystal-loot/exception_page.git
@@ -23,7 +23,7 @@ shards:
 
   kemal: # Overridden
     git: https://github.com/kemalcr/kemal.git
-    version: 1.6.0+git.commit.a9324bee6ffe01e4f5629e7afcde8f590a8eabb4
+    version: 1.6.0+git.commit.4352774968e2052b011b349a5f507d6db17cb8a6
 
   radix:
     git: https://github.com/luislavena/radix.git
