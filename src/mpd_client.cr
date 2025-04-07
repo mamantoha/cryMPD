@@ -13,61 +13,36 @@ class MPDClient
   end
 
   private def set_callbacks
-    @client.on :song do |_song|
-      if song = client.currentsong
-        data = {"action" => "song", "song" => song}
+    client.on_callback do |event, state|
+      case event
+      when .song?
+        if song = client.currentsong
+          data = {"action" => "song", "song" => song}
+
+          SOCKETS.each(&.send(data.to_json))
+        end
+      when .state?, .random?, .single?, .repeat?
+        data = {"action" => event.to_s.downcase, "state" => state}
+
+        SOCKETS.each(&.send(data.to_json))
+      when .time?
+        time = state.split(':')
+        data = {"action" => "time", "position" => time[0], "duration" => time[1]}
+
+        SOCKETS.each(&.send(data.to_json))
+      when .volume?
+        data = {"action" => "volume", "volume" => state}
+
+        SOCKETS.each(&.send(data.to_json))
+      when .playlist?
+        data = {"action" => "playlist"}
+
+        SOCKETS.each(&.send(data.to_json))
+      when .playlistlength?
+        data = {"action" => "playlist"}
 
         SOCKETS.each(&.send(data.to_json))
       end
-    end
-
-    @client.on :state do |state|
-      data = {"action" => "state", "state" => state}
-
-      SOCKETS.each(&.send(data.to_json))
-    end
-
-    @client.on :random do |random|
-      data = {"action" => "random", "state" => random}
-
-      SOCKETS.each(&.send(data.to_json))
-    end
-
-    @client.on :repeat do |repeat|
-      data = {"action" => "repeat", "state" => repeat}
-
-      SOCKETS.each(&.send(data.to_json))
-    end
-
-    @client.on :single do |single|
-      data = {"action" => "single", "state" => single}
-
-      SOCKETS.each(&.send(data.to_json))
-    end
-
-    @client.on :time do |time|
-      time = time.split(':')
-      data = {"action" => "time", "position" => time[0], "duration" => time[1]}
-
-      SOCKETS.each(&.send(data.to_json))
-    end
-
-    @client.on :volume do |volume|
-      data = {"action" => "volume", "volume" => volume}
-
-      SOCKETS.each(&.send(data.to_json))
-    end
-
-    @client.on :playlist do
-      data = {"action" => "playlist"}
-
-      SOCKETS.each(&.send(data.to_json))
-    end
-
-    @client.on :playlistlength do
-      data = {"action" => "playlist"}
-
-      SOCKETS.each(&.send(data.to_json))
     end
   end
 
