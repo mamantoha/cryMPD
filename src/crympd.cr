@@ -108,8 +108,18 @@ end
 
 get "/albumart" do |env|
   if current_song = mpd_client.currentsong
-    if response = mpd_client.albumart(current_song["file"])
-      data, binary = response
+    picture = mpd_client.readpicture(current_song["file"])
+
+    unless picture
+      begin
+        picture = mpd_client.albumart(current_song["file"])
+      rescue
+        nil
+      end
+    end
+
+    if picture
+      data, binary = picture
 
       data_type = data["type"]? ? data["type"] : "image/png"
 
