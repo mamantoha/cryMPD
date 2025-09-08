@@ -27,7 +27,7 @@ jobs:
       - name: Install Crystal
         uses: crystal-lang/install-crystal@v1
       - name: Setup node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '18'
       - run: npm install
