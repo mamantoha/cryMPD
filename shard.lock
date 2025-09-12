@@ -7,11 +7,11 @@ shards:
 
   baked_file_system:
     git: https://github.com/schovi/baked_file_system.git
-    version: 0.10.0
+    version: 0.11.0
 
   crystal_mpd:
     git: https://github.com/mamantoha/crystal_mpd.git
-    version: 1.0.1+git.commit.458a82322198c85a0e562212b4481a1e8bfab5c9
+    version: 1.0.2+git.commit.dc6e91e45f0556a7beda494d9ea3e0804b4093c0
 
   exception_page:
     git: https://github.com/crystal-loot/exception_page.git
@@ -23,7 +23,7 @@ shards:
 
   kemal: # Overridden
     git: https://github.com/kemalcr/kemal.git
-    version: 1.6.0+git.commit.95864868a086b5b1f903dc7f14f47335e57d35f4
+    version: 1.7.2+git.commit.e684d2ec9fac727bf63865c738d6db7529a6924c
 
   radix:
     git: https://github.com/luislavena/radix.git
